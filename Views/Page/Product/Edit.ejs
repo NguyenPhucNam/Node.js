@@ -473,7 +473,7 @@
           .done(data => {
             $('input[type=file]').val("");
             if (typeof (data.code) !== 'undefined') {
-               watai = `Lỗi ${data.code}. <br /> - Kích thước vượt quá 5.0 MB.`;
+               watai = `Lỗi kích thước ảnh quá lớn(${data.code}). <br /> - Kích thước vượt quá 2.0 MB.`;
                document.querySelector('input[type=file]').value = '';
                nam.splice(-1,1);
                sum -= countIhg;

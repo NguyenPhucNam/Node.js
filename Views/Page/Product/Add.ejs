@@ -58,7 +58,7 @@
                 </button>&nbsp;<i class="lead text-dark">hoặc kéo & thả hình ảnh lên</i>
               </span>
                   <ul class="text-left">
-                    <li>Tối đa 6 hình ảnh, tối đa 5.0 MB mỗi hình ảnh.</li>
+                    <li>Tối đa 6 hình ảnh, tối đa 2.0 MB mỗi hình ảnh.</li>
                     <li>Định dạng hình ảnh chấp nhận: JPG, JPEG, PNG, GIF.</li>
                     <li>Kích cỡ đề xuất: 1024 x 1024 px.</li>
                   </ul>
@@ -484,7 +484,7 @@
             .fail(error => {console.error('Error:', error);})
             .done(data => {
               if (typeof (data.code) !== 'undefined') {
-                watai = `Lỗi ${data.code}. <br /> - Kích thước vượt quá 5.0 MB.`;
+                watai = `Lỗi kích thước ảnh quá lớn(${data.code}). <br /> - Kích thước vượt quá 2.0 MB.`;
                  document.querySelector('input[type=file]').value = '';
                  nam.splice(-1,1);
                  sum -= countIhg;
