@@ -9,14 +9,14 @@ const UserController = require('../controller/user');
 router.get("/dang-nhap", UserController.get_sign_in);
 
 router.post("/dang-nhap", passport.authenticate('dang-nhap', {
-  failureRedirect: config.Path+'/tai-khoan/dang-nhap',
+  failureRedirect: config.Path+'tai-khoan/dang-nhap',
   failureFlash: true
 }), UserController.post_sign_in);
 
 router.get("/dang-ky", UserController.get_sign_up);
 
 router.post("/dang-ky", passport.authenticate('dang-ky', {
-  failureRedirect: config.Path+'/tai-khoan/dang-ky',
+  failureRedirect: config.Path+'tai-khoan/dang-ky',
   failureFlash: true
 }), UserController.post_sign_up);
 
