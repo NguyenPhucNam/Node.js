@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col">
   <div class="left_col scroll-view">
     <div class="navbar nav_title" style="border: 0;">
-      <a href="<%=path%>/admin/dashboard" class="site_title">
+      <a id="logo_navbar_Apage"  href="<%=path%>admin/dashboard" class="site_title">
         <img src="/images/chotot.png" alt="chototvanlang" style="width: 68px;height: 48px;"> <span><%= user.Admin.Name %></span></a>
     </div>
 
@@ -28,13 +28,13 @@
         <ul class="nav side-menu" style="">
           <li><a><i class="fa fa-home"></i> Quản lý <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-              <li class="current-page"><a href="<%=path%>/admin/dashboard">Dashboard</a></li>
-              <li><a href="<%=path%>/admin/tat-ca-san-pham">Tất cả sản phẩm</a></li>
+              <li class="current-page"><a href="<%=path%>admin/dashboard">Dashboard</a></li>
+              <li><a href="<%=path%>admin/tat-ca-san-pham">Tất cả sản phẩm</a></li>
             </ul>
           </li>
           <li><a><i class="fa fa-bar-chart-o"></i> Thống kê <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-              <li><a href="<%=path%>/admin/thong-ke">Bảng thống kê</a></li>
+              <li><a href="<%=path%>admin/thong-ke">Bảng thống kê</a></li>
             </ul>
           </li>
         </ul>
@@ -54,7 +54,7 @@
       <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Lock">
         <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
       </a>
-      <a data-toggle="tooltip" data-placement="top" title="" href="<%=path%>/admin/dang-xuat" data-original-title="Logout">
+      <a data-toggle="tooltip" data-placement="top" title="" href="<%=path%>admin/dang-xuat" data-original-title="Logout">
         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
       </a>
     </div>

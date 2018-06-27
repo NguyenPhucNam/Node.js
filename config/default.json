@@ -1,5 +1,5 @@
 {
-    "DBSchool": "mongodb://k21t18:keenline@cntttest.vanlanguni.edu.vn:8084/k21t18",
+    "DBSchool": "mongodb://loalhost:27017/testchotot",
     "DBHost": "mongodb://superMarketVLU:asdasd@ds157833.mlab.com:57833/testchotot",
     "DBTest": "mongodb://unitTestchotot:asdasd1@ds163610.mlab.com:63610/unittest",
     "Email": "chototvlu@gmail.com",
@@ -9,6 +9,6 @@
       "api_key": "828212854621378",
       "api_secret": "qmvBSzxpl1nOg_inFPawJC5YJho"
     },
-    "Port": 8080,
-    "Path": "/CMU/K21T18/final"
+    "Port": 80,
+    "Path": "/"
 }

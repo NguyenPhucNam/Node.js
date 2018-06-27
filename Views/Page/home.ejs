@@ -16,7 +16,7 @@
           <h2 id="categories--h2">Danh mục</h2>
           <% type.forEach(function(myType) { %>
             <div class="col-md-3 focus-grid">
-              <a href="<%=path%>/danh-muc/<%= myType._id %>">
+              <a href="<%=path%>danh-muc/<%= myType._id %>">
                 <div class="focus-border">
                   <div class="focus-layout">
                     <div class="focus-image"><i class="<%= myType.Icon %>"></i></div>
@@ -45,7 +45,7 @@
                 <li class="naem">
                   <% products.forEach(function(myPros) { %>
                     <div class="col-xs-offset-1 col-sm-offset-0 col-md-offset-0 col-lg-offset-0 col-sm-6 col-md-3 biseller-column">
-                      <a href="<%=path%>/san-pham/chi-tiet-san-pham/<%= myPros._id %>">
+                      <a href="<%=path%>san-pham/chi-tiet-san-pham/<%= myPros._id %>">
                       <div class="lazy-product img-Product" data-original="<%= myPros.Url_clound %><%= myPros.Img_Product %>" title="<%= myPros.Product_Name %>"></div>
                       <span class="price"><%= myPros.Price %> ₫</span>
 
@@ -62,7 +62,7 @@
             </ul>
           </div>
           <div class="clearfix"></div>
-          <div class="text-center" style="padding: 35px 0 0;"><a href="<%=path%>/danh-muc/<%= one_type_id %>" class="btn btn-success">Xem thêm</a></div>
+          <div class="text-center" style="padding: 35px 0 0;"><a href="<%=path%>danh-muc/<%= one_type_id %>" class="btn btn-success">Xem thêm</a></div>
         </div>
         <!-- //slider -->
       </div>

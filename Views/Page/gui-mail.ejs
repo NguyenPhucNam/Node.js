@@ -29,7 +29,7 @@
         <div id="messages">
         <p class="lead text-dark text-center">Vui lòng điền đầy đủ,đúng thông tin có mục <span class="text-danger">*(bắt buộc)</span>.</p>
         </div>
-      	<form action="<%=path%>/san-pham/gui-mail/<%= poro._id %>&<%= (uid == poro.Product_Type) ? "Kg" : "Sản phẩm" %>&<%= poro.Quantity %>" method="post" autocomplete="off">
+      	<form action="<%=path%>san-pham/gui-mail/<%= poro._id %>&<%= (uid == poro.Product_Type) ? "Kg" : "Sản phẩm" %>&<%= poro.Quantity %>" method="post" autocomplete="off">
       		<label>Tiêu đề <span>*</span></label>
       		<input type="text" class="title" name="tieude" placeholder="Tiêu đề"  maxlength="100" autocomplete="off" required>
       		<label>Họ và tên <span>*</span></label>
@@ -69,7 +69,7 @@
           <div class="carousel-inner">
             <% mulporo.some(function(allPro, iot, arrDot) {%>
               <div class="item <%= (iot++ > 0) ? "" : "active" %>">
-                <a href="<%=path%>/san-pham/chi-tiet-san-pham/<%= poro._id %>" class="thumbnail">
+                <a href="<%=path%>san-pham/chi-tiet-san-pham/<%= poro._id %>" class="thumbnail">
                   <div class="img-info-lh" title="<%= poro.Product_Name %>" style="background: url('<%= Url_clound %><%= allPro %>') center center / contain no-repeat;"></div>
                 </a>
               </div>

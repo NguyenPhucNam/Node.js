@@ -138,7 +138,7 @@ exports.post_add_products = (req, res, next) => {
         messages.push(error.msg);
       });
       req.flash('error', messages);
-      return res.status(302).redirect(config.Path+'/san-pham/them-san-pham');
+      return res.status(302).redirect(config.Path+'san-pham/them-san-pham');
     }
     var sanpham = new Product();
     sanpham.Product_Name = req.body.Product_Name;
@@ -149,7 +149,7 @@ exports.post_add_products = (req, res, next) => {
     sanpham.Brand = (req.body.Brand) ? (req.body.Brand) : "No Brand";
     sanpham.Product_Type = req.body.Product_Type;
     sanpham.Img_Product = req.body.imgs;
-    sanpham.Url_clound = '../../../../../images/';
+    sanpham.Url_clound = '/images/';
     sanpham.save(function(err) {
       if(err) {
         return res.json(err);
@@ -201,7 +201,7 @@ exports.post_edit_products = (req, res, next) => {
         messages.push(error.msg);
       });
       req.flash('error', messages);
-      return res.status(302).redirect(config.Path+'/san-pham/update-san-pham/'+`${req.params.id}`);
+      return res.status(302).redirect(config.Path+'san-pham/update-san-pham/'+`${req.params.id}`);
     }
     let editSanpham = {};
     editSanpham.Product_Name = req.body.Product_Name;
@@ -217,7 +217,7 @@ exports.post_edit_products = (req, res, next) => {
       if(err) {
         return res.json(err);
       } else {
-        return res.status(302).redirect(config.Path+'/kenh-nguoi-ban');
+        return res.status(302).redirect(config.Path+'kenh-nguoi-ban');
       }
     });
   });
@@ -286,11 +286,11 @@ exports.post_sendMail_products_for_Seller = (req, res, next) => {
   req.checkBody('noidung','Nội dung tối đa giá là 3000 ký tự').isLength({min: 1, max: 3000});
   if(req.params.kho < req.body.soluong) {
     req.flash('error', "Số lượng không được lớn hơn số lượng kho");
-    return res.status(302).redirect(config.Path+'/san-pham/gui-mail/'+`${req.params.id}&1`);
+    return res.status(302).redirect(config.Path+'san-pham/gui-mail/'+`${req.params.id}&1`);
   }
   if(req.body.soluong < 0) {
     req.flash('error', "Số lượng phải lớn hơn 0");
-    return res.status(302).redirect(config.Path+'/san-pham/gui-mail/'+`${req.params.id}&1`);
+    return res.status(302).redirect(config.Path+'san-pham/gui-mail/'+`${req.params.id}&1`);
   }
   var errors = req.validationErrors();
   if(errors) {
@@ -299,7 +299,7 @@ exports.post_sendMail_products_for_Seller = (req, res, next) => {
       messages.push(error.msg);
     });
     req.flash('error', messages);
-    return res.status(302).redirect(config.Path+'/san-pham/gui-mail/'+`${req.params.id}&${req.body.soluong}`);
+    return res.status(302).redirect(config.Path+'san-pham/gui-mail/'+`${req.params.id}&${req.body.soluong}`);
   }
   Product.findById(query, function(err, lolo) {
     Account.findById({ _id: lolo.Seller }, function(err, roto) {
@@ -317,7 +317,7 @@ exports.post_sendMail_products_for_Seller = (req, res, next) => {
         }
       try {
           let mail =	`<div style="width: 60%; padding: 15px; margin: 0 auto; border: 10px solid #262626;">
-            <h2 style="color: #01a185"><span><img src="https://chototvanlang.herokuapp.com/images/favicon.png" width="20px" height="20px"></span><span style="color: #f3c500">Chợ tốt</span> Văn Lang</h2>
+            <h2 style="color: #01a185"><span><img src="http://chototvanlang.tk/images/favicon.png" width="20px" height="20px"></span><span style="color: #f3c500">Chợ tốt</span> Văn Lang</h2>
             <div class="mail-header" style="background: #01a185; color: white; padding: 30px 0; text-align: center;">
               <h3>Chi tiết liên hệ</h3>
             </div>
@@ -354,7 +354,7 @@ exports.post_sendMail_products_for_Seller = (req, res, next) => {
                 </ul>
               </div>
               <div style="float: right; width: 38%; text-align: center">
-                <img src="https://chototvanlang.herokuapp.com/images/favicon.png" width="50%">
+                <img src="http://chototvanlang.tk/images/favicon.png" width="50%">
               </div>
               <div style="clear: both;"></div>
               <hr style="padding: 0;margin: 0;">
@@ -391,7 +391,7 @@ exports.post_sendMail_products_for_Seller = (req, res, next) => {
             ('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 
             req.flash('success', "Liên hệ đã được gửi");
-            return res.status(302).redirect(config.Path+'/san-pham/gui-mail/'+`${req.params.id}&1`);
+            return res.status(302).redirect(config.Path+'san-pham/gui-mail/'+`${req.params.id}&1`);
           });
         } catch (e) {
           res.json("Lỗi thực thi");

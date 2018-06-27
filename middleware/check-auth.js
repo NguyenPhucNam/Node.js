@@ -5,14 +5,14 @@ exports.isLogin = (req, res, next) => {
     return next();
   }
   req.session.oldUrl = req.originalUrl;
-  return res.status(302).redirect(config.Path+'/tai-khoan/dang-nhap');
+  return res.status(302).redirect(config.Path+'tai-khoan/dang-nhap');
 };
 
 exports.isPay = (req, res, next) => {
   if(req.user.User.Status === true) {
     return next();
   }
-  return res.status(302).redirect(config.Path+'/tai-khoan/cho-duyet');
+  return res.status(302).redirect(config.Path+'tai-khoan/cho-duyet');
 };
 
 exports.isNotPay = (req, res, next) => {
@@ -20,7 +20,7 @@ exports.isNotPay = (req, res, next) => {
     return next();
   }
   req.flash("Success", "Bạn đã trả phí")
-  return res.status(302).redirect(config.Path+'/kenh-nguoi-ban');
+  return res.status(302).redirect(config.Path+'kenh-nguoi-ban');
 };
 
 exports.verifyToken = (req, res, next) => {

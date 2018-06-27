@@ -27,17 +27,17 @@ exports.post_forgot_pass = (req, res, next) => {
       if (err) { return res.send(err); }
       if (!account) {
           req.flash('error','Rất tiếc! Tài khoản không tồn tại');
-          return res.status(302).redirect(config.Path+'/tai-khoan/lay-mat-khau');
+          return res.status(302).redirect(config.Path+'tai-khoan/lay-mat-khau');
       }
       try {
 
         const emailToken = jwt.sign({account}, 'secretkey', {expiresIn: '15m'});
-          const url = `http://localhost:8080${config.Path}/tai-khoan/doi-mat-khau/${emailToken}`;
+          const url = `http://chototvanlang.tk${config.Path}tai-khoan/doi-mat-khau/${emailToken}`;
 
 
           const laymk =
           `	<div style="width: 60%; padding: 15px; margin: 0 auto; border: 10px solid #262626;">
-            <h2 style="color: #01a185"><span><img src="https://chototvanlang.herokuapp.com/images/favicon.png" width="20px" height="20px"></span><span style="color: #f3c500">Chợ tốt</span> Văn Lang</h2>
+            <h2 style="color: #01a185"><span><img src="http://chototvanlang.tk/images/favicon.png" width="20px" height="20px"></span><span style="color: #f3c500">Chợ tốt</span> Văn Lang</h2>
             <div class="mail-header" style="background: #01a185; color: white; padding: 30px 0; text-align: center;">
               <h3>Yêu cầu đặt lại mật khẩu cho Tài khoản Chợ tốt Văn Lang của bạn</h3>
             </div>
@@ -93,7 +93,7 @@ exports.post_forgot_pass = (req, res, next) => {
             ('Preview URL: %s', nodemailer.getTestMessageUrl(info_user));
 
             req.flash('Success','thành công');
-            return res.status(302).redirect(config.Path+'/tai-khoan/lay-mat-khau');
+            return res.status(302).redirect(config.Path+'tai-khoan/lay-mat-khau');
         });
       } catch (e) {
         res.json("Gửi mail thất bại");
@@ -107,7 +107,7 @@ exports.get_change_pass = (req, res, next) => {
     jwt.verify(req.params.token, 'secretkey', (err, user) => {
       if(err) {
         req.flash('e', 'Yêu cầu của bạn đã hết hạn. Vui lòng gửi yêu cầu mới');
-        return res.status(302).redirect(config.Path+'/het-han');
+        return res.status(302).redirect(config.Path+'het-han');
       }
         res.render('Page/resetmk', {
           title: 'Đổi mật khẩu',
@@ -123,7 +123,7 @@ exports.get_change_pass = (req, res, next) => {
     });
   } catch (e) {
     req.flash('e', 'Phiên làm việc đã hết hạn. Vui lòng gửi yêu cầu mới');
-    return res.status(302).redirect(config.Path+'/het-han');
+    return res.status(302).redirect(config.Path+'het-han');
   }
 };
 
@@ -140,14 +140,14 @@ exports.post_change_pass = (req, res, next) => {
           mes.push(errors.msg);
         });
         req.flash('errors', mes);
-        return res.status(302).redirect(config.Path+'/tai-khoan/doi-mat-khau/'+req.params.token);
+        return res.status(302).redirect(config.Path+'tai-khoan/doi-mat-khau/'+req.params.token);
       }
       let updatePass = {};
       updatePass.password = bcrypt.hashSync(newPassword, bcrypt.genSaltSync(10), null);
       Account.update(query, updatePass, (err) => {
         if (err) return res.send(err);
         req.flash('mk', 'Đổi mật khẩu thành công');
-        return res.status(302).redirect(config.Path+'/tai-khoan/dang-nhap');
+        return res.status(302).redirect(config.Path+'tai-khoan/dang-nhap');
       });
     });
   } catch(e) {
@@ -168,12 +168,10 @@ exports.get_sign_in = (req, res, next) => {
 };
 
 exports.post_sign_in = (req, res, next) => {
-  // let user = req.user;
-  // const token = jwt.sign({user},'secret', {expiresIn: '3h'});
   if(req.session.oldUrl) {
     let currentUrl = req.session.oldUrl;
     req.session.oldUrl = null;
-    if(currentUrl == (config.Path+"/admin/dang-nhap")) {
+    if(currentUrl == (config.Path+"admin/dang-nhap")) {
       return res.status(302).redirect(config.Path);
     } else {
       return res.status(302).redirect(currentUrl);
@@ -199,7 +197,7 @@ exports.post_sign_up = (req, res, next) => {
     req.session.oldUrl = null;
     return res.status(302).redirect(currentUrl);
   } else {
-    return res.status(302).redirect(config.Path+'/tai-khoan/cho-duyet');
+    return res.status(302).redirect(config.Path+'tai-khoan/cho-duyet');
   }
 };
 
@@ -207,7 +205,6 @@ exports.get_logout = (req, res, next) => {
   req.logout();
   req.session.destroy(() => {
     res.clearCookie("connect.sid", {
-      // path: config.Path,
       httpOnly: true,
       maxAge: new Date(),
       expires: new Date(),

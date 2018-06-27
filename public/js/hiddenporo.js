@@ -1,5 +1,5 @@
 "use strict";
-const socket = io("http://localhost:8080");
+const socket = io("http://chototvanlang.tk");
 socket.on("online", a=>{
     $("#Id_online").html(a)
 }
@@ -21,7 +21,7 @@ socket.on('elastic', data => {
 });
 function dataList(data, yn) {
   if(yn) {
-    usa = `<a href="${$uri}/san-pham/chi-tiet-san-pham/${data._id}" class="list-group-item" onclick="itemElastic(this)">${data.Product_Name}&nbsp;<span class="badge">${data.Price}&nbsp;₫</span></a>`;
+    usa = `<a href="${$uri}san-pham/chi-tiet-san-pham/${data._id}" class="list-group-item" onclick="itemElastic(this)">${data.Product_Name}&nbsp;<span class="badge">${data.Price}&nbsp;₫</span></a>`;
     return usa;
   } else {
     nga = `<li class="list-group-item list-group-item-success disabled"><span><i class="glyphicon glyphicon-search"></i></span>&nbsp;${data}</li>`;
@@ -138,7 +138,7 @@ $(document).ready(function() {
           , g = $(this).children("input.hidden-poro").attr("data-val");
         $(this).closest("li").remove(),
         $.ajax({
-          url: $uri+'/san-pham/tam-ngung/'+'?_csrf='+$('input[name=_csrf]').val(),
+          url: $uri+'san-pham/tam-ngung/'+'?_csrf='+$('input[name=_csrf]').val(),
           type: 'PUT',
           dataType: "json",
           data: {
@@ -161,7 +161,7 @@ $(document).ready(function() {
           , g = $(this).children("input.hidden-poro").attr("data-val");
         $(this).closest("li").remove(),
         $.ajax({
-          url: $uri+'/san-pham/mo-ban/'+'?_csrf='+$('input[name=_csrf]').val(),
+          url: $uri+'san-pham/mo-ban/'+'?_csrf='+$('input[name=_csrf]').val(),
           type: 'PUT',
           dataType: "json",
           data: {

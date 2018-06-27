@@ -1,8 +1,10 @@
 $(document).ready(function() {
-  var toUser = [], spoUser = [], $url = $('a#logo_footer_Apage').attr('href');
+  var toUser = [], spoUser = [],
+  $url_link = $('a#logo_navbar_Apage').attr('href'),
+  $url = $url_link.slice($url_link.indexOf("/"),1);
   $('.canvasjs-chart-canvas').css("position","unset");
   $('[data-ds="tooltip"]').tooltip();
-  $('a.Status_Account').on('click', function(e){
+  $('a.Status_Account').on('click', function(e) {
     e.preventDefault();
     const ida = $(this).attr('data-id');
     let childC = $(this).children('input[type=checkbox]').attr('data-controls');
@@ -19,7 +21,7 @@ $(document).ready(function() {
     }
     $.ajax({
       type: 'PUT',
-      url: $url+'/admin/trang-thai-tai-khoan/'+ida+'/?_csrf='+$("input#token").val(),
+      url: $url+'admin/trang-thai-tai-khoan/'+ida+'/?_csrf='+$("input#token").val(),
       data: userStatus,
       success: function(newStatus) {
         $('#thanhcong').css('opacity','1');
@@ -36,10 +38,10 @@ $(document).ready(function() {
   $('.statitic').on('click', function() {
     let parentD = $(this).closest('tr').attr('data-id');
     let plus = `<em class="bnm">Sản phẩm</em>`;
-    $('a#aUser').attr('href', $url+"/admin/danh-sach-san-pham/"+parentD);
+    $('a#aUser').attr('href', $url+"admin/danh-sach-san-pham/"+parentD);
     $.ajax({
       type: 'GET',
-      url: $url+'/admin/thong-ke-ca-nhan/'+parentD,
+      url: $url+'admin/thong-ke-ca-nhan/'+parentD,
       success: function(protype) {
         let month_arr = protype.arrJson.map(function(data_i){
           return data_i = data_i.y;

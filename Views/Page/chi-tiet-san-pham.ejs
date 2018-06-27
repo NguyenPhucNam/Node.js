@@ -18,8 +18,8 @@
         <div class="main-breadcrumb col-sm-12">
           <ol class="breadcrumb">
             <li><a href="<%=path%>">Trang chủ</a></li>
-            <li><a href="<%=path%>/danh-muc/<%= all_typeid %>">Danh mục</a></li>
-            <li class="active"><a href="<%=path%>/danh-muc/<%= one_typeid._id %>"><%= one_typeid.Title %></a></li>
+            <li><a href="<%=path%>danh-muc/<%= all_typeid %>">Danh mục</a></li>
+            <li class="active"><a href="<%=path%>danh-muc/<%= one_typeid._id %>"><%= one_typeid.Title %></a></li>
             <li class="active"><%= product.Product_Name %></li>
           </ol>
         </div>
@@ -133,7 +133,7 @@
                 </div>
                 <div class="vl-detail-product__info--footer-contact-seller">
                   <!-- <button id="chatnow" class="btn btn-success chat-time" data-toggle="collapse" data-target="#chat" aria-expanded="true" style="display: <%= (user) ? '' : 'none' %>">Chat</button> -->
-                  <a id="liennhe" href="<%=path%>/san-pham/gui-mail/<%= product._id %>&1" class="btn btn-success" role="button">Liên hệ ngay</a>
+                  <a id="liennhe" href="<%=path%>san-pham/gui-mail/<%= product._id %>&1" class="btn btn-success" role="button">Liên hệ ngay</a>
                 </div>
               </div>
             </div>
@@ -218,7 +218,7 @@
 
 
                 <div class="col-sm-6 col-md-3">
-                  <a href="<%=path%>/san-pham/chi-tiet-san-pham/<%= pos._id %>">
+                  <a href="<%=path%>san-pham/chi-tiet-san-pham/<%= pos._id %>">
                     <div class="thumbnail select">
                       <img class="lazy-lq" data-original="<%= Url_clound %><%= pos.Img_Product %>" alt="<%= pos.Product_Name %>">
                       <div class="caption">
@@ -238,7 +238,7 @@
 
                    <% _arr.every(function(allPro2, index2, _arr2){%>
                     <div class="col-sm-6 col-md-3">
-                      <a href="<%=path%>/san-pham/chi-tiet-san-pham/<%= allPro2._id %>">
+                      <a href="<%=path%>san-pham/chi-tiet-san-pham/<%= allPro2._id %>">
                         <div class="thumbnail select">
                           <div class="lazy-lq img-thum" data-original="<%= Url_clound %><%= allPro2.Img_Product %>" alt="<%= allPro2.Product_Name %>"></div>
                           <div class="caption">

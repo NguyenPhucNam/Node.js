@@ -107,12 +107,12 @@ exports.post_contact_page = (req, res, next) => {
       messages.push(error.msg);
     });
     req.flash('error', messages);
-    return res.status(302).redirect(config.Path+'/lien-he');
+    return res.status(302).redirect(config.Path+'lien-he');
   }
   try {
     let mail_company =
     `<div style="width: 60%; padding: 15px; margin: 0 auto; border: 10px solid #262626;">
-          <h2 style="color: #01a185"><span><img src="https://chototvanlang.herokuapp.com/images/favicon.png" width="20px" height="20px"></span><span style="color: #f3c500">Chợ tốt</span> Văn Lang</h2>
+          <h2 style="color: #01a185"><span><img src="http://chototvanlang.tk/images/favicon.png" width="20px" height="20px"></span><span style="color: #f3c500">Chợ tốt</span> Văn Lang</h2>
           <div class="mail-header" style="background: #01a185; color: white; padding: 30px 0; text-align: center;">
             <h3>Yêu cầu hỗ trợ</h3>
           </div>
@@ -142,7 +142,7 @@ exports.post_contact_page = (req, res, next) => {
               </ul>
             </div>
             <div style="float: right; width: 38%; text-align: center">
-              <img src="https://chototvanlang.herokuapp.com/images/favicon.png" width="50%">
+              <img src="http://chototvanlang.tk/images/favicon.png" width="50%">
             </div>
             <div style="clear: both;"></div>
             <hr style="padding: 0;margin: 0;">
@@ -177,7 +177,7 @@ exports.post_contact_page = (req, res, next) => {
           ('Preview URL: %s', nodemailer.getTestMessageUrl(info_user));
 
           req.flash('success', "Liên hệ của bạn đã được gửi cho chúng tôi.");
-          return res.status(302).redirect(config.Path+'/lien-he');
+          return res.status(302).redirect(config.Path+'lien-he');
       });
   } catch (e) {
     res.json("Lỗi thực thi");

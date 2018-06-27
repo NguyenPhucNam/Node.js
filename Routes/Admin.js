@@ -117,11 +117,11 @@ const express = require('express'),
 
 
   router.post('/dang-nhap', passport.authenticate('dang-nhap', {
-    failureRedirect: config.Path+'/admin/dang-nhap',
+    failureRedirect: config.Path+'admin/dang-nhap',
     failureFlash: true
   }), function(req, res, next){
     if(req.user.Admin.isAdmin) {
-      return res.status(302).redirect(config.Path+'/admin/dashboard');
+      return res.status(302).redirect(config.Path+'admin/dashboard');
     }
     else {
       return res.status(302).redirect(config.Path);
@@ -130,7 +130,7 @@ const express = require('express'),
 
   router.get('/dang-xuat', isAdmin, function(req,res,next) {
   	req.logout();
-  	return res.status(302).redirect(config.Path+'/admin/dang-nhap');
+  	return res.status(302).redirect(config.Path+'admin/dang-nhap');
   });
 
   function isAdmin(req, res, next) {
@@ -141,7 +141,7 @@ const express = require('express'),
       return res.status(302).redirect(config.Path);
   	}
   	req.session.oldUrl = req.originalUrl;
-  	return res.status(302).redirect(config.Path+'/admin/dang-nhap');
+  	return res.status(302).redirect(config.Path+'admin/dang-nhap');
   }
 
   // handler

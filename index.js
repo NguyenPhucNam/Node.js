@@ -48,8 +48,6 @@ app.use(session({
 	secure: true,
 	cookie: {
     httpOnly: true,
-		// path: config.Path,
-		// domain: 'chototvanlang.com',
 		maxAge:  new Date(Date.now() + 10800000),
 		expires : new Date(Date.now() + 10800000),
 	}, //# 3 tiếng
@@ -92,9 +90,9 @@ require('./config/passport');
 ProductsController.socket(io);
 // routes
 app.use(config.Path, home);
-app.use(config.Path+"/admin", admin);
-app.use(config.Path+"/san-pham", products);
-app.use(config.Path+"/tai-khoan", user);
+app.use(config.Path+"admin", admin);
+app.use(config.Path+"san-pham", products);
+app.use(config.Path+"tai-khoan", user);
 
 
 // handler
