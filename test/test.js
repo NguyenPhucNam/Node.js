@@ -65,7 +65,7 @@ describe('Van Lang Market 👻', () => {
         it('it should GET id the Product_Type', (done) => {
           let id = "5af85f65419cadab24fbc6ad";
           request(server)
-          .get(config.Path+'/danh-muc/'+id)
+          .get(config.Path+'danh-muc/'+id)
           .expect(200)
           .expect(/Danh mục/, done)
         });
@@ -73,7 +73,7 @@ describe('Van Lang Market 👻', () => {
           it('it should not GET id the Product_Type', (done) => {
             let id = "5af85f65419";
             request(server)
-            .get(config.Path+'/danh-muc/'+id)
+            .get(config.Path+'danh-muc/'+id)
             .expect(404)
             .expect(/Not Found/, done)
            });
@@ -84,7 +84,7 @@ describe('Van Lang Market 👻', () => {
      describe('/CMU/K21T18/final/gioi-thieu Gioi thieu', () => {
        it('it should GET about', (done) => {
          chai.request(server)
-         .get(config.Path+'/gioi-thieu')
+         .get(config.Path+'gioi-thieu')
          .end((err, res) => {
            if (err) return done(err);
              res.should.have.status(200);
@@ -100,7 +100,7 @@ describe('Van Lang Market 👻', () => {
         it('it should GET id the Product', (done) => {
           let id = "5b0ae5aa0315bf36d4b00206";
           request(server)
-          .get(config.Path+'/san-pham/chi-tiet-san-pham/'+id)
+          .get(config.Path+'san-pham/chi-tiet-san-pham/'+id)
           .expect(200)
           .expect(/Chi tiết sản phẩm/, done)
         });
@@ -108,7 +108,7 @@ describe('Van Lang Market 👻', () => {
           it('it should not GET id the Product', (done) => {
             let id = "5b0ae5aa031";
             request(server)
-            .get(config.Path+'/san-pham/chi-tiet-san-pham/'+id)
+            .get(config.Path+'san-pham/chi-tiet-san-pham/'+id)
             .expect(404)
             .expect(/Not Found/, done)
            });
@@ -120,7 +120,7 @@ describe('Van Lang Market 👻', () => {
 
         beforeEach((done) => {
           request(server)
-            .get(config.Path+'/admin/dang-nhap')
+            .get(config.Path+'admin/dang-nhap')
             .expect(200)
             .end((err, resp) => {
               if(err) return new Error(err);
@@ -137,7 +137,7 @@ describe('Van Lang Market 👻', () => {
 
         it('success login', (done) => {
           request(server)
-            .post(config.Path+'/tai-khoan/dang-nhap')
+            .post(config.Path+'tai-khoan/dang-nhap')
             .type('form')
             .set('Cookie', cookies)
             .send({
@@ -151,7 +151,7 @@ describe('Van Lang Market 👻', () => {
 
         it('failure login', (done) => {
           request(server)
-            .post(config.Path+'/tai-khoan/dang-nhap')
+            .post(config.Path+'tai-khoan/dang-nhap')
             .type('form')
             .set('Cookie', cookies)
             .send({
@@ -162,7 +162,7 @@ describe('Van Lang Market 👻', () => {
             .expect(302)
             .end((err, res) => {
               if (err) return done(err);
-              res.header['location'].should.include(config.Path+'/tai-khoan/dang-nhap')
+              res.header['location'].should.include(config.Path+'tai-khoan/dang-nhap')
               done()
             });
             //.expect('Location', /\/CMU\/K21T18\/final\/tai-khoan\/dang-nhap/, done)
@@ -173,15 +173,15 @@ describe('Van Lang Market 👻', () => {
 
           let isLogin = (done) => {
             request(server)
-            .get(config.Path+'/kenh-nguoi-ban')
+            .get(config.Path+'kenh-nguoi-ban')
             .expect(302)
-            .expect('Location', config.Path+'/tai-khoan/dang-nhap', () => {
+            .expect('Location', config.Path+'tai-khoan/dang-nhap', () => {
               request(server)
-              .get(config.Path+'/tai-khoan/dang-nhap')
+              .get(config.Path+'tai-khoan/dang-nhap')
               .expect(200)
               .expect(/Đăng nhập/, () => {
                 request(server)
-                  .post(config.Path+'/tai-khoan/dang-nhap')
+                  .post(config.Path+'tai-khoan/dang-nhap')
                   .type('form')
                   .set('Cookie', cookies)
                   .send({
@@ -208,15 +208,15 @@ describe('Van Lang Market 👻', () => {
 
           it('it should not done when it login with user Agree', (done) => {
             request(server)
-            .get(config.Path+'/kenh-nguoi-ban')
+            .get(config.Path+'kenh-nguoi-ban')
             .expect(302)
-            .expect('Location', config.Path+'/tai-khoan/dang-nhap', () => {
+            .expect('Location', config.Path+'tai-khoan/dang-nhap', () => {
               request(server)
-              .get(config.Path+'/tai-khoan/dang-nhap')
+              .get(config.Path+'tai-khoan/dang-nhap')
               .expect(200)
               .expect(/Đăng nhập/, () => {
                 request(server)
-                  .post(config.Path+'/tai-khoan/dang-nhap')
+                  .post(config.Path+'tai-khoan/dang-nhap')
                   .type('form')
                   .set('Cookie', cookies)
                   .send({
@@ -225,7 +225,7 @@ describe('Van Lang Market 👻', () => {
                     password: 'asdasd'
                   })
                   .expect(200)
-                  .redirects(config.Path+'/tai-khoan/cho-duyet')
+                  .redirects(config.Path+'tai-khoan/cho-duyet')
                   .end(done)
               })
             })
@@ -237,15 +237,15 @@ describe('Van Lang Market 👻', () => {
             // ngừng bán sản phẩm
             it('it should done tam ngung ban (Success)', (done) => {
               request(server)
-              .get(config.Path+'/kenh-nguoi-ban')
+              .get(config.Path+'kenh-nguoi-ban')
               .expect(302)
-              .expect('Location', config.Path+'/tai-khoan/dang-nhap', () => {
+              .expect('Location', config.Path+'tai-khoan/dang-nhap', () => {
                 request(server)
-                .get(config.Path+'/tai-khoan/dang-nhap')
+                .get(config.Path+'tai-khoan/dang-nhap')
                 .expect(200)
                 .expect(/Đăng nhập/, () => {
                   request(server)
-                    .post(config.Path+'/tai-khoan/dang-nhap')
+                    .post(config.Path+'tai-khoan/dang-nhap')
                     .type('form')
                     .set('Cookie', cookies)
                     .send({
@@ -258,7 +258,7 @@ describe('Van Lang Market 👻', () => {
                     .end((err, res) => {
                       if(err) return new Error(err);
                       request(server)
-                      .put(config.Path+'/san-pham/tam-ngung/?_csrf='+token)
+                      .put(config.Path+'san-pham/tam-ngung/?_csrf='+token)
                       .set('Cookie', cookies)
                       .set('Content-Type', 'application/json')
                       .set('cache', false)
@@ -282,15 +282,15 @@ describe('Van Lang Market 👻', () => {
           describe("/CMU/K21T18/final/san-pham/mo-ban mo-ban", () => {
             it('it should done mo-ban (Success)', (done) => {
               request(server)
-              .get(config.Path+'/kenh-nguoi-ban')
+              .get(config.Path+'kenh-nguoi-ban')
               .expect(302)
-              .expect('Location', config.Path+'/tai-khoan/dang-nhap', () => {
+              .expect('Location', config.Path+'tai-khoan/dang-nhap', () => {
                 request(server)
-                .get(config.Path+'/tai-khoan/dang-nhap')
+                .get(config.Path+'tai-khoan/dang-nhap')
                 .expect(200)
                 .expect(/Đăng nhập/, () => {
                   request(server)
-                    .post(config.Path+'/tai-khoan/dang-nhap')
+                    .post(config.Path+'tai-khoan/dang-nhap')
                     .type('form')
                     .set('Cookie', cookies)
                     .send({
@@ -303,7 +303,7 @@ describe('Van Lang Market 👻', () => {
                     .end((err, res) => {
                       if(err) return new Error(err);
                       request(server)
-                      .put(config.Path+'/san-pham/mo-ban/?_csrf='+token)
+                      .put(config.Path+'san-pham/mo-ban/?_csrf='+token)
                       .set('Cookie', cookies)
                       .set('Content-Type', 'application/json')
                       .set('cache', false)
@@ -329,15 +329,15 @@ describe('Van Lang Market 👻', () => {
             // Success
             it('it should done when it login and fee pay with Account(Success)', (done) => {
               request(server)
-              .get(config.Path+'/kenh-nguoi-ban')
+              .get(config.Path+'kenh-nguoi-ban')
               .expect(302)
-              .expect('Location', config.Path+'/tai-khoan/dang-nhap', () => {
+              .expect('Location', config.Path+'tai-khoan/dang-nhap', () => {
                 request(server)
-                .get(config.Path+'/tai-khoan/dang-nhap')
+                .get(config.Path+'tai-khoan/dang-nhap')
                 .expect(200)
                 .expect(/Đăng nhập/, () => {
                   request(server)
-                    .post(config.Path+'/tai-khoan/dang-nhap')
+                    .post(config.Path+'tai-khoan/dang-nhap')
                     .type('form')
                     .set('Cookie', cookies)
                     .send({
@@ -350,13 +350,13 @@ describe('Van Lang Market 👻', () => {
                     .end((err) => {
                       if(err) return new Error(err);
                       request(server)
-                      .get(config.Path+'/san-pham/them-san-pham')
+                      .get(config.Path+'san-pham/them-san-pham')
                       .expect(200)
-                      .redirects(config.Path+'/san-pham/them-san-pham')
+                      .redirects(config.Path+'san-pham/them-san-pham')
                       .end((err) => {
                         if(err) return new Error(err);
                         request(server)
-                        .post(config.Path+'/san-pham/them-san-pham/?_csrf='+token)
+                        .post(config.Path+'san-pham/them-san-pham/?_csrf='+token)
                         .type('form')
                         .set('Cookie', cookies)
                         .send({
@@ -383,15 +383,15 @@ describe('Van Lang Market 👻', () => {
             // failure beacuse it don't have Image
             it('it should done when it login and fee pay with Account(failure Image)', (done) => {
               request(server)
-              .get(config.Path+'/kenh-nguoi-ban')
+              .get(config.Path+'kenh-nguoi-ban')
               .expect(302)
-              .expect('Location', config.Path+'/tai-khoan/dang-nhap', () => {
+              .expect('Location', config.Path+'tai-khoan/dang-nhap', () => {
                 request(server)
-                .get(config.Path+'/tai-khoan/dang-nhap')
+                .get(config.Path+'tai-khoan/dang-nhap')
                 .expect(200)
                 .expect(/Đăng nhập/, () => {
                   request(server)
-                    .post(config.Path+'/tai-khoan/dang-nhap')
+                    .post(config.Path+'tai-khoan/dang-nhap')
                     .type('form')
                     .set('Cookie', cookies)
                     .send({
@@ -404,13 +404,13 @@ describe('Van Lang Market 👻', () => {
                     .end((err) => {
                       if(err) return new Error(err);
                       request(server)
-                      .get(config.Path+'/san-pham/them-san-pham')
+                      .get(config.Path+'san-pham/them-san-pham')
                       .expect(200)
-                      .redirects(config.Path+'/san-pham/them-san-pham')
+                      .redirects(config.Path+'san-pham/them-san-pham')
                       .end((err) => {
                         if(err) return new Error(err);
                         request(server)
-                        .post(config.Path+'/san-pham/them-san-pham/?_csrf='+token)
+                        .post(config.Path+'san-pham/them-san-pham/?_csrf='+token)
                         .type('form')
                         .set('Cookie', cookies)
                         .send({
@@ -423,7 +423,7 @@ describe('Van Lang Market 👻', () => {
                         .expect(302)
                         .end((err, res) => {
                           if (err) return done(err);
-                          res.header['location'].should.include(config.Path+'/san-pham/them-san-pham')
+                          res.header['location'].should.include(config.Path+'san-pham/them-san-pham')
                           done()
                         });
                         //.expect('Location', /\/CMU\/K21T18\/final\/san-pham\/them-san-pham/, done)
@@ -440,15 +440,15 @@ describe('Van Lang Market 👻', () => {
             it('it should done Update success', (done) => {
               let id = "5b2b13c561222143b8434769";
               request(server)
-              .get(config.Path+'/kenh-nguoi-ban')
+              .get(config.Path+'kenh-nguoi-ban')
               .expect(302)
-              .expect('Location', config.Path+'/tai-khoan/dang-nhap', () => {
+              .expect('Location', config.Path+'tai-khoan/dang-nhap', () => {
                 request(server)
-                .get(config.Path+'/tai-khoan/dang-nhap')
+                .get(config.Path+'tai-khoan/dang-nhap')
                 .expect(200)
                 .expect(/Đăng nhập/, () => {
                   request(server)
-                    .post(config.Path+'/tai-khoan/dang-nhap')
+                    .post(config.Path+'tai-khoan/dang-nhap')
                     .type('form')
                     .set('Cookie', cookies)
                     .send({
@@ -461,13 +461,13 @@ describe('Van Lang Market 👻', () => {
                     .end((err) => {
                       if(err) return new Error(err);
                       request(server)
-                      .get(config.Path+'/san-pham/update-san-pham/'+id)
+                      .get(config.Path+'san-pham/update-san-pham/'+id)
                       .expect(200)
-                      .redirects(config.Path+'/san-pham/update-san-pham/'+id)
+                      .redirects(config.Path+'san-pham/update-san-pham/'+id)
                       .end((err) => {
                         if(err) return new Error(err);
                         request(server)
-                        .post(config.Path+'/san-pham/update-san-pham/'+id+'/?_csrf='+token)
+                        .post(config.Path+'san-pham/update-san-pham/'+id+'/?_csrf='+token)
                         .type('form')
                         .set('Cookie', cookies)
                         .send({
@@ -481,7 +481,7 @@ describe('Van Lang Market 👻', () => {
                         .expect(302)
                         .end((err, res) => {
                           if (err) return done(err);
-                          res.header['location'].should.include(config.Path+'/kenh-nguoi-ban')
+                          res.header['location'].should.include(config.Path+'kenh-nguoi-ban')
                           done()
                         });
                       })
@@ -494,18 +494,18 @@ describe('Van Lang Market 👻', () => {
 
         });
 
-        describe(config.Path+'/tai-khoan/dang-xuat', () => {
+        describe(config.Path+'tai-khoan/dang-xuat', () => {
           it('it should logout success', (done) => {
             request(server)
-            .get(config.Path+'/kenh-nguoi-ban')
+            .get(config.Path+'kenh-nguoi-ban')
             .expect(302)
-            .expect('Location', config.Path+'/tai-khoan/dang-nhap', () => {
+            .expect('Location', config.Path+'tai-khoan/dang-nhap', () => {
               request(server)
-              .get(config.Path+'/tai-khoan/dang-nhap')
+              .get(config.Path+'tai-khoan/dang-nhap')
               .expect(200)
               .expect(/Đăng nhập/, () => {
                 request(server)
-                  .post(config.Path+'/tai-khoan/dang-nhap')
+                  .post(config.Path+'tai-khoan/dang-nhap')
                   .type('form')
                   .set('Cookie', cookies)
                   .send({
@@ -517,7 +517,7 @@ describe('Van Lang Market 👻', () => {
                   .redirects(0)
                   .expect(/Kênh người bán/, () => {
                     request(server)
-                    .get(config.Path+"/tai-khoan/dang-xuat")
+                    .get(config.Path+"tai-khoan/dang-xuat")
                     .expect(302)
                     .end((err,res) => {
                       if(err) throw new Error(err);
@@ -538,11 +538,11 @@ describe('Van Lang Market 👻', () => {
         // Register Success
         it('it should Register Success', (done) => {
           request(server)
-          .get(config.Path+'/tai-khoan/dang-ky')
+          .get(config.Path+'tai-khoan/dang-ky')
           .expect(200)
           .expect(/Đăng ký/, () => {
             request(server)
-            .post(config.Path+'/tai-khoan/dang-ky')
+            .post(config.Path+'tai-khoan/dang-ky')
             .type('form')
             .set('Cookie', cookies)
             .send({
@@ -553,7 +553,7 @@ describe('Van Lang Market 👻', () => {
               password: 'asdasd'
             })
             .expect(200)
-            .redirects(config.Path+'/tai-khoan/cho-duyet')
+            .redirects(config.Path+'tai-khoan/cho-duyet')
             .end(done)
           })
         });
@@ -561,11 +561,11 @@ describe('Van Lang Market 👻', () => {
         // Register Failure
         it('it should Register Failure', (done) => {
           request(server)
-          .get(config.Path+'/tai-khoan/dang-ky')
+          .get(config.Path+'tai-khoan/dang-ky')
           .expect(200)
           .expect(/Đăng ký/, () => {
             request(server)
-            .post(config.Path+'/tai-khoan/dang-ky')
+            .post(config.Path+'tai-khoan/dang-ky')
             .type('form')
             .set('Cookie', cookies)
             .send({
@@ -576,7 +576,7 @@ describe('Van Lang Market 👻', () => {
               password: 'asdasd'
             })
             .expect(302)
-            .expect('Location', config.Path+'/tai-khoan/dang-ky', done)
+            .expect('Location', config.Path+'tai-khoan/dang-ky', done)
           })
         });
 
@@ -588,20 +588,20 @@ describe('Van Lang Market 👻', () => {
           let id = "5b2b1e0961222143b843476a"; //khai báo 1 ID của sản phẩm phải có trong db
           //từ trang chủ
           request(server) //gọi tới server
-          .get(config.Path+'/san-pham/chi-tiet-san-pham/'+id) // yêu cầu server cho xem trang chi tiết của sản phẩm có id như trên
+          .get(config.Path+'san-pham/chi-tiet-san-pham/'+id) // yêu cầu server cho xem trang chi tiết của sản phẩm có id như trên
           .expect(200) //thành công là 200,
           //.expect(/Chi tiết sản phẩm/, done) //HIển thị trang chi tiết của sản phẩm có id như trên
           .expect(/Chi tiết sản phẩm/, () => {
             // chữ done là tiếp tục hành trình send mail bỏ done thêm () => {} có có hiểu là tạo 1 hàm để chạy tiếp sau khi vào xem chi tiết
             let soluong = 1; //test thành công thì số lượng phải nhỏ hơn số lượng sản phẩm có và test thất bại thì ngược lại
             request(server) //gọi tới server
-            .get(config.Path+"/san-pham/gui-mail/"+id+"&"+soluong) // yêu cầu server cho cái view gửi mail của sản phẩm có id và số lượng như trên
+            .get(config.Path+"san-pham/gui-mail/"+id+"&"+soluong) // yêu cầu server cho cái view gửi mail của sản phẩm có id và số lượng như trên
             .expect(200)
             .expect(/Gửi liên hệ sản phẩm/, () => {
               let kho = 1;
               let tyle = 'kg';
               request(server)
-              .post(config.Path+'/san-pham/gui-mail/'+id+'&'+tyle+'&'+kho)
+              .post(config.Path+'san-pham/gui-mail/'+id+'&'+tyle+'&'+kho)
               .type('form')
               .set('Cookie', cookies) //bảo mật
               .send({
@@ -614,7 +614,7 @@ describe('Van Lang Market 👻', () => {
                 noidung: "0123456789"
               }) //gửi thông tin trong form
               .expect(200)
-              .redirects(config.Path+'/san-pham/gui-mail/'+id+"&1")
+              .redirects(config.Path+'san-pham/gui-mail/'+id+"&1")
               .end((err,res) => {
                 if (err) return done(err);
                 res.text.should.contain('Liên hệ đã được gửi');
@@ -628,20 +628,20 @@ describe('Van Lang Market 👻', () => {
           let id = "5b2b1e0961222143b843476a"; //khai báo 1 ID của sản phẩm phải có trong db
           //từ trang chủ
           request(server) //gọi tới server
-          .get(config.Path+'/san-pham/chi-tiet-san-pham/'+id) // yêu cầu server cho xem trang chi tiết của sản phẩm có id như trên
+          .get(config.Path+'san-pham/chi-tiet-san-pham/'+id) // yêu cầu server cho xem trang chi tiết của sản phẩm có id như trên
           .expect(200) //thành công là 200,
           //.expect(/Chi tiết sản phẩm/, done) //HIển thị trang chi tiết của sản phẩm có id như trên
           .expect(/Chi tiết sản phẩm/, () => {
             // chữ done là tiếp tục hành trình send mail bỏ done thêm () => {} có có hiểu là tạo 1 hàm để chạy tiếp sau khi vào xem chi tiết
             let soluong = 1; //test thành công thì số lượng phải nhỏ hơn số lượng sản phẩm có và test thất bại thì ngược lại
             request(server) //gọi tới server
-            .get(config.Path+"/san-pham/gui-mail/"+id+"&"+soluong) // yêu cầu server cho cái view gửi mail của sản phẩm có id và số lượng như trên
+            .get(config.Path+"san-pham/gui-mail/"+id+"&"+soluong) // yêu cầu server cho cái view gửi mail của sản phẩm có id và số lượng như trên
             .expect(200)
             .expect(/Gửi liên hệ sản phẩm/, () => {
               let kho = 1;
               let tyle = 'kg';
               request(server)
-              .post(config.Path+'/san-pham/gui-mail/'+id+'&'+tyle+'&'+kho)
+              .post(config.Path+'san-pham/gui-mail/'+id+'&'+tyle+'&'+kho)
               .type('form')
               .set('Cookie', cookies) //bảo mật
               .send({
@@ -654,7 +654,7 @@ describe('Van Lang Market 👻', () => {
                 noidung: "0123456789"
               }) //gửi thông tin trong form
               .expect(200)
-              .redirects(config.Path+'/san-pham/gui-mail/'+id+"&"+soluong)
+              .redirects(config.Path+'san-pham/gui-mail/'+id+"&"+soluong)
               .end((err,res) => {
                 if (err) return done(err);
                 res.text.should.contain('Họ và tên không được trống');
@@ -668,20 +668,20 @@ describe('Van Lang Market 👻', () => {
           let id = "5b2b1e0961222143b843476a"; //khai báo 1 ID của sản phẩm phải có trong db
           //từ trang chủ
           request(server) //gọi tới server
-          .get(config.Path+'/san-pham/chi-tiet-san-pham/'+id) // yêu cầu server cho xem trang chi tiết của sản phẩm có id như trên
+          .get(config.Path+'san-pham/chi-tiet-san-pham/'+id) // yêu cầu server cho xem trang chi tiết của sản phẩm có id như trên
           .expect(200) //thành công là 200,
           //.expect(/Chi tiết sản phẩm/, done) //HIển thị trang chi tiết của sản phẩm có id như trên
           .expect(/Chi tiết sản phẩm/, () => {
             // chữ done là tiếp tục hành trình send mail bỏ done thêm () => {} có có hiểu là tạo 1 hàm để chạy tiếp sau khi vào xem chi tiết
             let soluong = 1; //test thành công thì số lượng phải nhỏ hơn số lượng sản phẩm có và test thất bại thì ngược lại
             request(server) //gọi tới server
-            .get(config.Path+"/san-pham/gui-mail/"+id+"&"+soluong) // yêu cầu server cho cái view gửi mail của sản phẩm có id và số lượng như trên
+            .get(config.Path+"san-pham/gui-mail/"+id+"&"+soluong) // yêu cầu server cho cái view gửi mail của sản phẩm có id và số lượng như trên
             .expect(200)
             .expect(/Gửi liên hệ sản phẩm/, () => {
               let kho = 1;
               let tyle = 'kg';
               request(server)
-              .post(config.Path+'/san-pham/gui-mail/'+id+'&'+tyle+'&'+kho)
+              .post(config.Path+'san-pham/gui-mail/'+id+'&'+tyle+'&'+kho)
               .type('form')
               .set('Cookie', cookies) //bảo mật
               .send({
@@ -694,7 +694,7 @@ describe('Van Lang Market 👻', () => {
                 noidung: "0123456789"
               }) //gửi thông tin trong form
               .expect(200)
-              .redirects(config.Path+'/san-pham/gui-mail/'+id+"&1")
+              .redirects(config.Path+'san-pham/gui-mail/'+id+"&1")
               .end((err,res) => {
                 if (err) return done(err);
                 res.text.should.contain('Số lượng không được lớn hơn số lượng kho');
@@ -710,11 +710,11 @@ describe('Van Lang Market 👻', () => {
       describe('/lien-he send-mail-to-company', () => {
         it("it should send mail to company success",(done) => {
           request(server)
-          .get(config.Path+'/lien-he')
+          .get(config.Path+'lien-he')
           .expect(200)
           .expect(/Liên hệ với chúng tôi/, () => {
             request(server)
-            .post(config.Path+'/lien-he')
+            .post(config.Path+'lien-he')
             .type('form')
             .set('Cookie', cookies) //bảo mật
             .send({
@@ -726,7 +726,7 @@ describe('Van Lang Market 👻', () => {
               content: "testUnittest"
             }) //gửi thông tin trong form
             .expect(200)
-            .redirects(config.Path+'/lien-he')
+            .redirects(config.Path+'lien-he')
             .end((err,res) => {
               res.text.should.contain('Thành công! Liên hệ của bạn đã được gửi cho chúng tôi.')
               done();
@@ -737,12 +737,12 @@ describe('Van Lang Market 👻', () => {
 
 
   // Admin
-  describe(config.Path+"/admin/dang-nhap Admin", () => {
+  describe(config.Path+"admin/dang-nhap Admin", () => {
 
     // get token admin
     beforeEach((done) => {
       request(server)
-        .get(config.Path+'/admin/dang-nhap')
+        .get(config.Path+'admin/dang-nhap')
         .expect(200)
         .end((err, resp) => {
           if(err) return new Error(err);
@@ -759,11 +759,11 @@ describe('Van Lang Market 👻', () => {
 
     it("it should login admin success, auth", (done) => {
       request(server)
-      .get(config.Path+"/admin/dang-nhap")
+      .get(config.Path+"admin/dang-nhap")
       .expect(200)
       .expect(/Đăng nhập/, () => {
         request(server)
-        .post(config.Path+"/admin/dang-nhap")
+        .post(config.Path+"admin/dang-nhap")
         .type('form')
         .set('Cookie', cookiesAdmin) //bảo mật
         .send({
@@ -772,7 +772,7 @@ describe('Van Lang Market 👻', () => {
           password: "asdasd"
         }) //gửi thông tin trong form
         .expect(200)
-        .redirects(config.Path+'/admin/dashboard')
+        .redirects(config.Path+'admin/dashboard')
         .expect(/Dashboard/, done)
       });
     });
@@ -782,11 +782,11 @@ describe('Van Lang Market 👻', () => {
       it('it should show detail and view list of seller', (done) => {
         let id = "5afbb231370a0c2748242ed1";
         request(server)
-        .get(config.Path+"/admin/dang-nhap")
+        .get(config.Path+"admin/dang-nhap")
         .expect(200)
         .expect(/Đăng nhập/, () => {
           request(server)
-          .post(config.Path+"/admin/dang-nhap")
+          .post(config.Path+"admin/dang-nhap")
           .type('form')
           .set('Cookie', cookiesAdmin) //bảo mật
           .send({
@@ -795,7 +795,7 @@ describe('Van Lang Market 👻', () => {
             password: "asdasd"
           }) //gửi thông tin trong form
           .expect(200)
-          .redirects(config.Path+'/admin/dashboard')
+          .redirects(config.Path+'admin/dashboard')
           .expect(/Dashboard/, done)
         });
       });
@@ -805,11 +805,11 @@ describe('Van Lang Market 👻', () => {
       it('it should update status of Seller', (done) => {
         let id = "5af85dd176fbe3b3a0235727";
         request(server)
-        .get(config.Path+"/admin/dang-nhap")
+        .get(config.Path+"admin/dang-nhap")
         .expect(200)
         .expect(/Đăng nhập/, () => {
           request(server)
-          .post(config.Path+"/admin/dang-nhap")
+          .post(config.Path+"admin/dang-nhap")
           .type('form')
           .set('Cookie', cookiesAdmin) //bảo mật
           .send({
@@ -818,11 +818,11 @@ describe('Van Lang Market 👻', () => {
             password: "asdasd"
           }) //gửi thông tin trong form
           .expect(200)
-          .redirects(config.Path+'/admin/dashboard')
+          .redirects(config.Path+'admin/dashboard')
           .end((err,res) => {
             if(err) throw new Error(err);
             request(server)
-            .put(config.Path+"/admin/trang-thai-tai-khoan/"+id+"/?_csrf="+tokenAdmin)
+            .put(config.Path+"admin/trang-thai-tai-khoan/"+id+"/?_csrf="+tokenAdmin)
             .type('form')
             .set('Cookie', cookiesAdmin) //bảo mật
             .send({
@@ -839,19 +839,19 @@ describe('Van Lang Market 👻', () => {
       });
     });
 
-    describe(config.Path+'/admin/tat-ca-san-pham it should show all data API products of ChototVanLang',() => {
+    describe(config.Path+'admin/tat-ca-san-pham it should show all data API products of ChototVanLang',() => {
      // Success
      it('it should show all data API products of ChototVanLang', (done) => {
        request(server)
-       .get(config.Path+'/dashboard')
+       .get(config.Path+'dashboard')
        .expect(302)
-       .expect('Location', config.Path+'/admin/dang-nhap', () => {
+       .expect('Location', config.Path+'admin/dang-nhap', () => {
          request(server)
-         .get(config.Path+'/admin/dang-nhap')
+         .get(config.Path+'admin/dang-nhap')
          .expect(200)
          .expect(/Đăng nhập/, () => {
            request(server)
-             .post(config.Path+'/admin/dang-nhap')
+             .post(config.Path+'admin/dang-nhap')
              .type('form')
              .set('Cookie', cookiesAdmin)
              .send({
@@ -864,9 +864,9 @@ describe('Van Lang Market 👻', () => {
              .end(async (err) => {
                if(err) return new Error(err);
                await request(server)
-               .get(config.Path+'/admin/tat-ca-san-pham')
+               .get(config.Path+'admin/tat-ca-san-pham')
                .expect(200)
-               .redirects(config.Path+'/admin/tat-ca-san-pham')
+               .redirects(config.Path+'admin/tat-ca-san-pham')
                .end(async (err,res) => {
                  if(err) return new Error(err);
                  await res.text.should.contain('Tất cả');
@@ -882,11 +882,11 @@ describe('Van Lang Market 👻', () => {
     describe('Statistic', ()=>{
       it('it should Statistic all user has quantity product sale max => min', (done) => {
         request(server)
-        .get(config.Path+"/admin/dang-nhap")
+        .get(config.Path+"admin/dang-nhap")
         .expect(200)
         .expect(/Đăng nhập/, () => {
           request(server)
-          .post(config.Path+"/admin/dang-nhap")
+          .post(config.Path+"admin/dang-nhap")
           .type('form')
           .set('Cookie', cookiesAdmin) //bảo mật
           .send({
@@ -895,11 +895,11 @@ describe('Van Lang Market 👻', () => {
             password: "asdasd"
           }) //gửi thông tin trong form
           .expect(302)
-          .redirects(config.Path+'/admin/dashboard')
+          .redirects(config.Path+'admin/dashboard')
           .end(async (err) => {
             if(err) return new Error(err);
               await request(server)
-              .get(config.Path+'/admin/thong-ke')
+              .get(config.Path+'admin/thong-ke')
               .expect(200)
               .expect(/Thống kê/, done);
           });
@@ -911,11 +911,11 @@ describe('Van Lang Market 👻', () => {
     describe('Logout Admin success', () => {
           it("it should logout admin success, auth", (done) => {
             request(server)
-            .get(config.Path+"/admin/dang-nhap")
+            .get(config.Path+"admin/dang-nhap")
             .expect(200)
             .expect(/Đăng nhập/, () => {
               request(server)
-              .post(config.Path+"/admin/dang-nhap")
+              .post(config.Path+"admin/dang-nhap")
               .type('form')
               .set('Cookie', cookiesAdmin) //bảo mật
               .send({
@@ -924,15 +924,15 @@ describe('Van Lang Market 👻', () => {
                 password: "asdasd"
               }) //gửi thông tin trong form
               .expect(200)
-              .redirects(config.Path+'/admin/dashboard')
+              .redirects(config.Path+'admin/dashboard')
               .end((err,res) => {
                 if(err) return new Error(err);
                 request(server)
-                .get(config.Path+"/admin/dang-xuat")
+                .get(config.Path+"admin/dang-xuat")
                 .expect(302)
                 .end((err,res) => {
                   if(err) throw new Error(err);
-                  res.header['location'].should.include(config.Path+'/admin/dang-nhap')
+                  res.header['location'].should.include(config.Path+'admin/dang-nhap')
                   res.text.should.not.contain("Admin");
                   done();
                 });
