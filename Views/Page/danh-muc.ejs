@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- meta css info  -->
+  <%- include ../partials(css-js)/head %>
+
+</head>
+<body>
+  <%- include ../partials/Header %>
+
+  <!-- Background -->
+  <%- include ../Background/bg %>
+  <!-- Categories -->
+  <!--Vertical Tab-->
+  <div class="categories-section main-grid-border">
+    <div class="container">
+      <h2 class="head"><%= title %></h2>
+      <div class="category-list">
+        <div id="parentVerticalTab" class="resp-vtabs hor_1" style="display: block;width: 100%;margin: 0px;">
+          <ul class="resp-tabs-list hor_1">
+            <% var countCl = 0; %>
+            <% type.forEach(elis => { %>
+              <li class="resp-tab-item hor_1" aria-controls="hor_1_tab_item-<%= elis._id %>" role="tab" style="background-color: rgb(245, 245, 245);"><%= elis.Title %></li>
+            <% }); %>
+          </ul>
+          <div class="resp-tabs-container hor_1">
+            <span class="active total" style="display:block;" data-toggle="modal" data-target="#myModal">
+              <strong><%= header %></strong> (<%= subHeader %>)
+            </span>
+            <input type="hidden" name="type_id" value="<%= type_id %>">
+            <% products.forEach(function(myPros) { %>
+              <div class="category resp-tab-content hor_1" aria-labelledby="hor_1_tab_item-<%= myPros.Product_Type %>" style="border-color: rgb(193, 193, 193);">
+                <div>
+                  <div class="category-img">
+                    <img class="lazy-cate" data-original="<%= myPros.Url_clound %><%= myPros.Img_Product %>" title="<%= myPros.Product_Name %>" alt="<%= myPros.Product_Name %>" />
+                  </div>
+                  <div class="category-info">
+                    <h4><%= myPros.Product_Name %></h4>
+                    <span><%= myPros.Price %> VNĐ</span>
+                    <a href="<%=path%>/san-pham/chi-tiet-san-pham/<%= myPros._id %>">Xem chi tiết sản phẩm</a>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            <% }); %>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include ../partials/Footer %>
+
+  <!-- js -->
+  <%- include ../partials(css-js)/foot %>
+  <script src="/js/easyResponsiveTabs.js"></script>
+
+</body>
+</html>

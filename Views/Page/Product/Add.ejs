@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- meta css info  -->
+  <%- include ../../partials(css-js)/head %>
+  <style type="text/css">
+  /*Date: 2016-05-28T14:47:08.528Z*/
+  .cropper-container{font-size:0;line-height:0;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;direction:ltr!important;-ms-touch-action:none;touch-action:none;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;}.cropper-container img{display:block;width:100%;min-width:0!important;max-width:none!important;height:100%;min-height:0!important;max-height:none!important;image-orientation:0deg!important}.cropper-canvas,.cropper-crop-box,.cropper-drag-box,.cropper-modal,.cropper-wrap-box{position:absolute;top:0;right:0;bottom:0;left:0}.cropper-wrap-box{overflow:hidden}.cropper-drag-box{opacity:0;background-color:#fff;filter:alpha(opacity=0)}.cropper-dashed,.cropper-modal{opacity:.5;filter:alpha(opacity=50)}.cropper-modal{background-color:#000}.cropper-view-box{display:block;overflow:hidden;width:100%;height:100%;outline:#39f solid 1px;outline-color:rgba(51,153,255,.75)}.cropper-dashed{position:absolute;display:block;border:0 dashed #eee}.cropper-dashed.dashed-h{top:33.33333%;left:0;width:100%;height:33.33333%;border-top-width:1px;border-bottom-width:1px}.cropper-dashed.dashed-v{top:0;left:33.33333%;width:33.33333%;height:100%;border-right-width:1px;border-left-width:1px}.cropper-center{position:absolute;top:50%;left:50%;display:block;width:0;height:0;opacity:.75;filter:alpha(opacity=75)}.cropper-center:after,.cropper-center:before{position:absolute;display:block;content:' ';background-color:#eee}.cropper-center:before{top:0;left:-3px;width:7px;height:1px}.cropper-center:after{top:-3px;left:0;width:1px;height:7px}.cropper-face,.cropper-line,.cropper-point{position:absolute;display:block;width:100%;height:100%;opacity:.1;filter:alpha(opacity=10)}.cropper-face{top:0;left:0;background-color:#fff}.cropper-line,.cropper-point{background-color:#39f}.cropper-line.line-e{top:0;right:-3px;width:5px;cursor:e-resize}.cropper-line.line-n{top:-3px;left:0;height:5px;cursor:n-resize}.cropper-line.line-w{top:0;left:-3px;width:5px;cursor:w-resize}.cropper-line.line-s{bottom:-3px;left:0;height:5px;cursor:s-resize}.cropper-point{width:5px;height:5px;opacity:.75;filter:alpha(opacity=75)}.cropper-point.point-e{top:50%;right:-3px;margin-top:-3px;cursor:e-resize}.cropper-point.point-n{top:-3px;left:50%;margin-left:-3px;cursor:n-resize}.cropper-point.point-w{top:50%;left:-3px;margin-top:-3px;cursor:w-resize}.cropper-point.point-s{bottom:-3px;left:50%;margin-left:-3px;cursor:s-resize}.cropper-point.point-ne{top:-3px;right:-3px;cursor:ne-resize}.cropper-point.point-nw{top:-3px;left:-3px;cursor:nw-resize}.cropper-point.point-sw{bottom:-3px;left:-3px;cursor:sw-resize}.cropper-point.point-se{right:-3px;bottom:-3px;width:20px;height:20px;cursor:se-resize;opacity:1;filter:alpha(opacity=100)}.cropper-point.point-se:before{position:absolute;right:-50%;bottom:-50%;display:block;width:200%;height:200%;content:' ';opacity:0;background-color:#39f;filter:alpha(opacity=0)}@media (min-width:768px){.cropper-point.point-se{width:15px;height:15px}}@media (min-width:992px){.cropper-point.point-se{width:10px;height:10px}}@media (min-width:1200px){.cropper-point.point-se{width:5px;height:5px;opacity:.75;filter:alpha(opacity=75)}}.cropper-invisible{opacity:0;filter:alpha(opacity=0)}.cropper-bg{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC)}.cropper-hide{position:absolute;display:block;width:0;height:0}.cropper-hidden{display:none!important}.cropper-move{cursor:move}.cropper-crop{cursor:crosshair}.cropper-disabled .cropper-drag-box,.cropper-disabled .cropper-face,.cropper-disabled .cropper-line,.cropper-disabled .cropper-point{cursor:not-allowed}input[type=hidden]{opacity:0;visibility:hidden;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
+  </style>
+
+</head>
+<body>
+  <%- include ../../partials/Header %>
+
+  <hr>
+  <h1 class="text-center"><%= chuto %></h1>
+  <div class="container" style="margin-bottom: 25px;box-shadow: 1px 1px 1px;">
+    <div class="wapper">
+      <div id="danger-duration" class="alert alert-danger" style="position: absolute; top: 0; left: 30%; display: none;">
+        <strong>Hình ảnh bị lặp không được chấp nhận cho 1 sản phẩm!</strong>.
+      </div>
+      <div id="success-duration" class="alert alert-success" style="position: absolute; top: 0; left: 30%; display: none;">
+        <strong>Hình ảnh bị lặp không được chấp nhận cho 1 sản phẩm!</strong>.
+      </div>
+      <br>
+      <div class="form__upload--image text-dark">
+        <h2>Thêm hình ảnh sản phẩm</h2>
+        <p>
+          Kéo để sắp xếp lại hình ảnh của bạn. Mỗi sản phẩm có <b><i class="text-danger">tối đa 6 hình ảnh</i></b>.
+        </p>
+        <div id="alert--err" class="alert alert-danger" style="display: none;">
+          <strong>Lỗi!</strong>
+        </div>
+        <div id="alert--thanhcong" class="alert alert-success" style="display: none;">
+          <strong>Thành công!</strong>
+        </div>
+          <%if(typeof msg != 'undefined'){ %>
+            <div id="alert-err" class="alert alert-danger">
+              <strong><%= msg %></strong>
+            </div>
+          <% } %>
+
+          <%if(mesa.length > 0){ %>
+            <% mesa.forEach((err) => {%>
+              <div class="alert alert-danger validate-add"><%= err %></div>
+            <% }); %>
+          <% } %>
+          <form action="<%=path%>/san-pham/them-san-pham/?_csrf=<%=csrfToken%>" method="POST" autocomplete="off" enctype="multipart/form-data">
+            <div class="dropzone">
+              <div class="dz-default dz-message">
+                <div id="drop">
+                  <svg viewBox="0 0 1000 1000">
+                    <g><g transform="translate(0.000000,511.000000) scale(0.100000,-0.100000)">
+                      <path d="M5754.6,3701.3c-652.2-117.7-1245.6-487.9-1620.7-1010.2l-93.2-127.5h-186.3c-367.8-2.5-742.9-105.4-1039.6-284.4C2537.7,2110,2233.7,1781.4,2089,1497l-49-98.1l-220.7-31.9C961.1,1251.8,296.7,624.1,132.4-226.7c-174.1-912.1,370.2-1865.9,1245.6-2182.2c333.5-120.2,446.3-127.5,1892.9-127.5h1338.7v196.2v196.2H3256.1c-1530,0-1559.4,2.4-1907.6,174.1c-512.4,252.5-858.2,816.5-858.2,1395.2c0,875.3,765,1613.4,1618.3,1564.3l193.7-12.3l51.5,149.6c259.9,718.4,1012.6,1159.8,1743.3,1020c115.2-22.1,134.9-19.6,156.9,14.7c483,819,1184.3,1223.5,2035.1,1179.4c946.4-49,1716.3-674.3,1978.7-1603.6c39.2-147.1,53.9-262.4,53.9-490.4l2.4-301.6l154.5-51.5c203.5-68.6,485.5-259.9,642.4-434c237.8-267.3,392.3-671.8,392.3-1034.7c0-581.1-345.7-1140.1-858.2-1395.2c-348.2-171.6-377.6-174.1-1905.1-174.1H5394.2v-196.2v-196.2h1355.9c1029.8,2.4,1397.6,9.8,1537.4,34.3c845.9,154.5,1490.8,836.1,1598.7,1696.7c51.5,407-41.7,860.6-252.5,1218.6c-171.6,291.8-500.2,598.3-796.9,747.8l-100.5,51.5l-17.2,179c-46.6,456-196.2,887.6-438.9,1245.6c-110.3,161.8-448.7,505.1-617.9,625.2C7117.9,3649.8,6392.1,3816.5,5754.6,3701.3z"/><path d="M4290.8-219.3L3592-918.1l142.2-139.8l139.8-142.2l465.9,465.9l465.9,465.9V-1894v-1623.2h196.2H5198V-1894v1625.6l465.9-465.9l465.9-465.9l139.8,142.2l142.2,139.8l-698.8,698.8c-385,384.9-703.7,698.8-711.1,698.8C4994.5,479.5,4675.8,165.6,4290.8-219.3z"/></g></g>
+                  </svg>
+                  <span>
+                <button class="btn btn-success" type="button" name="button">Tìm hình ảnh
+                </button>&nbsp;<i class="lead text-dark">hoặc kéo & thả hình ảnh lên</i>
+              </span>
+                  <ul class="text-left">
+                    <li>Tối đa 6 hình ảnh, tối đa 5.0 MB mỗi hình ảnh.</li>
+                    <li>Định dạng hình ảnh chấp nhận: JPG, JPEG, PNG, GIF.</li>
+                    <li>Kích cỡ đề xuất: 1024 x 1024 px.</li>
+                  </ul>
+                </div>
+                <p id="sl-Img"><span>0</span>/<span>6</span></p>
+                <input type="file" id="files" name="productImg" onchange="uploadImages()" accept="image/*" multiple/>
+                <output id="list"></output>
+              </div>
+            </div>
+            <br>
+            <div class="form__info--product">
+              <h2 class="text-dark">Thông tin sản phẩm</h2>
+              <div class="form-horizontal text-dark">
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="Product_Name">Tên sản phẩm:</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="Product_Name" minlength="1" maxlength="120" placeholder="Tên sản phẩm" name="Product_Name" autocomplete="off" required>
+                    <div class="text-right"><span id="proName">0</span>/120</div>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <input type="hidden" id="imgs" name="imgs" class="hidden" minlength="1" hidden readonly autocomplete="off" size="1" invisible required/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="Description">Mô tả sản phẩm:</label>
+                  <div class="col-sm-6">
+                    <div id="froala-editor"></div>
+                    <textarea type="text" class="form-control" id="Description" rows="7" minlength="1" maxlength="3000" placeholder="Mô tả sản phẩm" name="Description" autocomplete="off" required></textarea>
+                    <div class="text-right"><span id="desDetail">0</span>/3000</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="Product_Type">Danh mục:</label>
+                  <div class="col-sm-6">
+                    <select class="form-control" id="Product_Type" name="Product_Type" onchange="typle(this.options[this.selectedIndex].value)" required>
+                      <option label="Danh mục" disabled hidden selected></option>
+                         <% type.some(function(value,i,_arr) {%>
+                         <option value="<%=value._id%>"><%=value.Title%></option>
+                         <%});%>
+                     </select>
+                  </div>
+                </div>
+                <br>
+
+                <h2 class="text-dark">Giá và số lượng</h2>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="Price">Giá
+              <a href="#" data-price="tooltip" data-placement="top" title="Vui lòng đăng sản phẩm với mức giá bạn sẵn lòng bán. Việc thiết lập mức giá có thể ảnh hưởng đến sản phẩm.">
+                <i class="fa fa-info-circle text-primary" aria-hidden="true"></i>
+              </a>:
+            </label>
+                  <div class="col-sm-4">
+                    <div class="input-group">
+                      <input type="number" class="form-control" id="Price" placeholder="Giá" min="1" name="Price" autocomplete="off" required>
+                      <span class="input-group-addon"><b>VNĐ</b></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="Quantity">Số lượng:</label>
+                  <div class="col-sm-4">
+                    <div class="input-group">
+                      <input type="number" class="form-control" id="Quantity" min="1" placeholder="Số lượng" name="Quantity" autocomplete="off" required>
+                      <span class="input-group-addon"><b id="unit">Sản phẩm</b></span>
+                      <input type="hidden" id="first" name="id" value="<%= first_type_id %>" autocomplete="off" size="1" hidden readonly>
+                    </div>
+                  </div>
+                </div>
+                <br>
+
+                <h2 class="text-dark">Thông tin khác</h2>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="Brand">Hãng:</label>
+                  <div class="col-sm-4">
+                    <input type="text"  class="form-control" id="Brand" autocomplete="off" maxlength="200" placeholder="Thương hiệu" name="Brand">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="status">Trạng thái:</label>
+                  <div class="col-sm-2">
+                    <select class="form-control" id="status" name="status">
+                      <option value="">Mới</option>
+                      <option value="">Đã sử dụng</option>
+                    </select>
+                  </div>
+                </div>
+                <br><br>
+                <div class="form-group">
+                  <div class="col-sm-offset-6 col-sm-10">
+                    <a href="<%=path%>/kenh-nguoi-ban" id="cancel" class="btn btn-default">Huỷ</a>
+                    <input type="submit" id="save" value="Lưu" class="btn btn-success"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+      </div>
+      <hr>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="resizeImg" class="modal fade" role="dialog">
+    <div class="container">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Chỉnh sửa hình ảnh</h4>
+        </div>
+        <div class="modal-body">
+          <div class="header--resize">
+            <div class="col-sm-7 col-md-offset-2 col-lg-offset-2">
+              <div class="col-xs-1 col-sm-1">
+                <svg id="zooml" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" width="32px" height="32px" fill="#01a185" cursor="pointer" stroke="none">
+                <g><g transform="translate(0.000000,511.000000) scale(0.100000,-0.100000)"><path d="M3439.7,4526.4c-1518.2-178-2820.7-1302.5-3218.6-2783c-358.1-1338.1,92.1-2783,1160.1-3723.3C3219.9-3598.7,6038.5-3071,7200.7-893.1c636.6,1195.7,546.6,2665.8-232.5,3792.4c-546.6,789.5-1417.7,1377.9-2324.4,1566.4C4254.3,4547.3,3808.3,4568.3,3439.7,4526.4z M4532.9,4046.9c636.6-134,1181.1-414.6,1631.3-839.7c485.8-460.7,806.2-1036.6,959.1-1727.6c37.7-175.9,46.1-276.4,46.1-657.5c2.1-395.8-4.2-477.4-46.1-678.5c-142.4-665.9-425.1-1189.5-892.1-1658.5C5739-2007.2,5161.1-2308.7,4470-2436.5c-314.1-58.6-944.4-54.4-1256.5,8.4c-714.1,142.4-1290,456.5-1782.1,973.8c-410.4,427.2-695.2,975.8-829.3,1593.6c-39.8,182.2-46.1,274.3-46.1,672.2s6.3,490,46.1,672.2c144.5,661.7,429.3,1189.4,894.2,1652.2c525.6,527.7,1143.4,835.5,1893.1,944.4C3676.4,4120.1,4256.4,4103.4,4532.9,4046.9z"/><path d="M3580,1628.2v-554.9h-554.9h-554.9V853.4V633.5h554.9H3580V68.1v-565.4h219.9h219.9V68.1v565.4h565.4h565.4v219.9v219.9h-565.4h-565.4v554.9v554.9h-219.9H3580V1628.2z"/><path d="M6844.7-1506.7c-62.8-71.2-125.6-144.5-140.3-165.4c-23-33.5,134-178,1440.7-1346.5c806.2-720.4,1472.1-1310.9,1480.5-1308.8c16.7,0,263.8,280.6,274.3,309.9c4.2,14.6-2850,2584.1-2917.1,2623.9C6968.3-1385.2,6913.8-1431.3,6844.7-1506.7z"/></g></g>
+                </svg>
+              </div>
+              <div class="col-xs-1 col-sm-1">
+                <svg id="zoomn" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" width="32px" height="32px" fill="#01a185" cursor="pointer" stroke="none">
+                <g><path d="M377,745.8c88.3,0,171.7-31.3,238.1-88.2L937.7,981c6,6,13.8,9,21.7,9c7.8,0,15.7-3,21.6-8.9c12-11.9,12-31.3,0.1-43.3L658.1,614.1C779,469.7,772,253.5,636.5,117.8C567.2,48.2,475,10,376.9,10S186.7,48.2,117.3,117.8c-143.1,143.5-143.1,376.9,0,520.3C186.7,707.6,278.9,745.8,377,745.8L377,745.8z M160.7,161c57.8-57.9,134.6-89.8,216.2-89.8c81.7,0,158.5,31.9,216.2,89.8c119.3,119.6,119.3,314.2,0,433.8c-57.8,57.9-134.6,89.8-216.2,89.8c-81.7,0-158.5-31.9-216.2-89.8C41.4,475.2,41.4,280.6,160.7,161L160.7,161z"/><path d="M232.8,409.1h299.4c16.9,0,30.6-13.7,30.6-30.6s-13.7-30.6-30.6-30.6H232.8c-16.9,0-30.6,13.7-30.6,30.6S215.8,409.1,232.8,409.1L232.8,409.1z"/></g>
+                </svg>
+              </div>
+              <div class="col-xs-1 col-sm-1">
+                <svg id="xoayp" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" width="32px" height="32px" fill="#01a185" cursor="pointer" stroke="none">
+                <g><g transform="translate(0.000000,511.000000) scale(0.100000,-0.100000)"><path d="M3350.2,4164.4c-814.2-463-1495-857.4-1512.7-875c-51-47.1-47.1-164.8,7.9-215.8c25.5-21.6,702.4-421.8,1504.8-888.8c1047.7-610.2,1475.4-849.5,1518.6-849.5c39.2,0,74.6,15.7,106,53l45.1,53v792.6c0,435.6,5.9,796.6,15.7,800.5c27.5,17.7,486.6-25.5,700.4-66.7c484.6-92.2,1057.5-335.5,1461.7-621.9c229.6-160.9,659.2-584.7,824-808.3c1000.6-1363.6,984.9-3229.4-35.3-4565.5c-608.2-796.6-1516.6-1308.6-2534.9-1428.3c-1589.2-188.3-3103.8,616.1-3806.2,2020.8c-237.4,478.7-355.1,904.5-394.4,1438.1c-27.5,378.7-25.5,372.8-107.9,410.1c-62.8,31.4-74.6,31.4-121.6,3.9c-104-56.9-111.8-102-86.3-415.9c29.4-370.8,84.4-649.4,192.3-975.1c233.5-714.2,678.8-1375.3,1243.9-1848.2c590.6-494.4,1253.7-800.5,2011-931.9c274.7-47.1,961.4-47.1,1236,0c880.9,151.1,1646.1,547.4,2266.1,1169.3c951.6,955.5,1377.3,2336.7,1118.3,3625.7c-310,1544.1-1475.4,2784-2994,3184.3c-208,54.9-600.4,117.7-733.8,117.7c-58.8,0-141.2,5.9-184.4,13.7l-74.6,11.8l5.9,771.1l7.8,769.1l-47.1,51c-29.4,31.4-68.7,51-100.1,51C4849.1,5010,4288,4702,3350.2,4164.4z M4709.9,3181.4c-3.9-769.1-9.8-1400.8-13.7-1404.8c-3.9-5.9-551.3,308-1214.5,694.5c-663.1,388.5-1198.8,712.2-1190.9,720c17.7,17.7,2399.5,1383.2,2415.2,1385.1C4711.8,4578.4,4713.8,3950.5,4709.9,3181.4z"/></g></g>
+                </svg>
+              </div>
+              <div class="col-xs-1 col-sm-1">
+                <svg id="xoayt" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" width="32px" height="32px" fill="#01a185" cursor="pointer" stroke="none">
+                <g><g transform="translate(0.000000,511.000000) scale(0.100000,-0.100000)"><path d="M5032.6,4982.5c-74.6-54.9-78.5-113.8-62.8-877l13.7-737.7l-76.5-11.8c-41.2-7.9-125.6-13.7-184.4-13.7c-241.3,0-674.9-90.2-1030-209.9C2617.4,2765.5,1705.1,1921.9,1255.8,876.1C859.5-46,814.4-1027,1124.4-1974.6c233.5-714.2,678.8-1375.3,1243.9-1848.2c590.6-494.4,1253.7-800.5,2011-931.9c274.7-47.1,961.4-47.1,1236,0c441.4,76.5,827.9,204.1,1208.6,398.3C8087.4-3709,8921.2-2486.7,9058.5-1074c33.4,339.4,29.4,388.5-39.2,457.1c-51,49.1-70.6,56.9-123.6,47.1c-109.9-21.6-117.7-43.1-145.2-386.5c-29.4-378.7-80.4-651.4-184.4-967.3c-310-943.7-975.1-1714.7-1861.9-2160.1C4840.3-5015.6,2560.5-4274,1642.3-2435.6c-160.9,323.7-255.1,588.6-321.8,906.4C1091-438.4,1332.3,672.1,1985.7,1553c158.9,213.9,594.5,637.6,814.2,792.6c396.3,280.6,943.7,518,1422.4,614.1c223.7,45.1,708.3,94.2,739.7,74.5c9.8-3.9,15.7-364.9,15.7-800.5v-792.6l45.1-53c31.4-37.3,66.7-53,106-53c43.2,0,470.9,239.4,1518.5,849.5c802.5,466.9,1479.3,867.2,1504.8,888.8c54.9,51,58.9,168.7,7.9,215.8C8079.5,3363.9,5166,5010,5117,5010C5089.5,5010,5050.2,4998.2,5032.6,4982.5z M6484.4,3897.6c655.3-372.8,1200.7-688.6,1214.5-700.4c17.6-15.7-282.5-200.1-1183.1-725.9c-663.1-386.5-1210.5-700.4-1214.5-696.5c-7.8,7.8-21.6,2803.6-13.7,2803.6C5289.6,4578.4,5829.1,4272.3,6484.4,3897.6z"/></g></g>
+                </svg>
+              </div>
+              <div class="col-xs-1 col-sm-1">
+                <svg id="reset" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" width="32px" height="32px" fill="#01a185" cursor="pointer" stroke="none">
+                <g><path d="M778.3,778.2c-17.8,17.8-37.4,34-58.3,48.1c-21,14.2-43.5,26.4-66.8,36.3c-23.7,10-48.6,17.8-73.8,22.9c-51.8,10.6-106.8,10.6-158.7,0c-25.3-5.2-50.1-12.9-73.8-22.9c-23.3-9.9-45.8-22.1-66.8-36.3c-20.8-14.1-40.4-30.3-58.3-48.1c-17.8-17.8-34-37.4-48.1-58.3c-14.2-21-26.4-43.5-36.3-66.8c-8.8-20.8-15.8-42.4-20.9-64.4l73-12.2L82.2,500L10,606.6l67.8-11.3c5.6,25,13.5,49.6,23.5,73.2c10.8,25.6,24.3,50.4,39.9,73.5c15.5,22.9,33.3,44.4,52.8,64c19.6,19.6,41.1,37.3,64,52.8c23.1,15.6,47.9,29.1,73.5,39.9c26.1,11,53.5,19.5,81.2,25.2c28.5,5.8,57.8,8.8,87.2,8.8s58.7-3,87.2-8.8c27.8-5.7,55.1-14.2,81.3-25.2c25.6-10.8,50.4-24.3,73.5-39.9c22.9-15.5,44.5-33.3,64-52.8c19.6-19.6,37.3-41.1,52.8-64L826.3,720C812.3,740.8,796.1,760.4,778.3,778.2z"/><path d="M923.5,410.7c-5.7-27.1-14-53.7-24.8-79.2c-10.8-25.6-24.3-50.4-39.9-73.5c-15.5-22.9-33.2-44.4-52.8-64c-19.6-19.6-41.1-37.3-64-52.8c-23.1-15.6-47.9-29.1-73.5-39.9c-26.1-11-53.5-19.5-81.2-25.2c-57-11.7-117.4-11.7-174.4,0c-27.8,5.7-55.1,14.2-81.2,25.2c-25.6,10.8-50.4,24.3-73.5,39.9c-22.9,15.5-44.4,33.2-64,52.8c-19.6,19.6-37.3,41.1-52.8,64l32.5,21.9c14.1-20.8,30.3-40.4,48.1-58.3c17.8-17.8,37.4-34,58.3-48.1c21-14.2,43.5-26.4,66.8-36.3c23.7-10,48.6-17.8,73.8-22.9c51.9-10.6,106.8-10.6,158.7,0c25.3,5.2,50.1,12.9,73.8,22.9c23.3,9.9,45.8,22.1,66.8,36.3c20.8,14.1,40.4,30.3,58.3,48.1c17.8,17.8,34,37.4,48.1,58.3c14.2,21,26.4,43.5,36.3,66.8c9.6,22.7,17,46.3,22.2,70.4l-74.3,12.4l107.3,76.6L990,399.6L923.5,410.7z"/><path d="M770.3,671.4v-39.2V328.6H229.7v342.8l0,0l0,0H770.3z M324.7,362.2c20.9,0,37.9,17,37.9,37.9s-17,37.9-37.9,37.9s-37.9-17-37.9-37.9C286.8,379.2,303.8,362.2,324.7,362.2z M437.6,453.8l130.3,144l78.4-62.1l88.3,96.6H267.1L437.6,453.8z"/></g>
+                </svg>
+              </div>
+            </div>
+          </div><br>
+          <div class="body--resize">
+            <div class="col-sm-9"><div id="result"></div></div>
+            <div class="col-sm-3">
+              <div class="img-container">
+                <h2 style="margin-top: 0px">Ảnh sau khi resize</h2>
+                <div class="img-preview border-preview">
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div><br>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Huỷ</button>
+          <button id="luu" class="btn btn-success" data-dismiss="modal">Lưu</button>
+          <!-- <button id="luu" class="btn btn-success">Lưu</button> -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; perspective: 1000px; background-color: #00000085; z-index: 9998;" id="await" class="collapse" title="Đang xử lý ..." ><div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; transform: scale(.3); background: url(../images/load.gif) center center / contain no-repeat;"></div></div>
+
+  <%- include ../../partials/Footer %>
+
+    <!-- js -->
+  <%- include ../../partials(css-js)/foot %>
+  <script src='/js/cropper.min.js'></script>
+
+  <script type="text/javascript">
+
+  var init_change;
+  var previews = document.querySelector('#list');
+  var err = document.querySelector('#alert--err');
+  var nam = [], watai, init_img,
+      nameImg = new Array(),
+      sl_Img = document.querySelector('p#sl-Img span:first-child'),
+      $result = document.querySelector('div#result'),
+      $imgs = document.querySelector('input#imgs'),
+      $duration = $('div#danger-duration'),
+      $zooml = $('svg#zooml'),
+      $zoomn = $('svg#zoomn'),
+      $xoayt = $('svg#xoayt'),
+      $xoayp = $('svg#xoayp'),
+      $reset = $('svg#reset'),
+      $save = $('button#luu');
+
+        var uploadImages = () => {
+
+          var err_danger = document.querySelector('div.err-danger');
+          var validate_add = document.querySelector('div.validate-add');
+          var errB = document.querySelector('#alert-err');
+          var filename = document.querySelector('#filename');
+          var fileField = document.querySelector("input[type=file]"),
+          url = '<%=path%>/san-pham/uploadAdd/?_csrf=<%=csrfToken%>',
+          countIhg = fileField.files.length;
+          var formData = new FormData();
+          nam.push(countIhg);
+          let sum = nam.reduce(add, 0);
+          function add(a, b) {return a + b;}
+          if(sum < 7) {
+            for (var i = 0; i < countIhg; i++) {
+              let test = fileField.files[i].name;
+              if(!test.toLowerCase().match(/\.(jpg|jpeg|png|gif)$/i)) {
+                watai = 'Vui lòng chỉ chọn ảnh (jpg|jpeg|png|gif)';
+                document.querySelector('input[type=file]').value = '';
+                sum -= countIhg;
+                nam.splice(-1,1);
+                errorMaxlength(watai);
+                sessionStorage.setItem('dataId', sum);
+                return;
+              }
+              formData.append('productImg', fileField.files[i]);
+            }
+            init_change(url, formData, sum, countIhg);
+            if (typeof(Storage) !== "undefined") {
+                sessionStorage.setItem('dataId', sum);
+            } else {
+              thatbai('sessionStorage thất bại');
+              setTimeout(function() {
+                yFail.style.display = 'none';
+              },1500);
+            }
+          } else {
+            let mes = "Quá số ảnh tải lên (6/6)";
+            socket.compress(true).emit('deleteAll', nameImg);
+            sl_Img.innerHTML = 0;
+            sl_Img.style.color = "#01a185";
+            document.querySelector('#list').innerHTML = '';
+            document.querySelector('input[type=file]').value = '';
+            nam.splice(0,nam.length);
+            nameImg.splice(0,nameImg.length);
+            sessionStorage.removeItem('dataId');
+            sum = 0;
+            addSpan();
+            errorMaxlength(mes);
+            return;
+          }
+      }
+
+      socket.on('allD', data => {
+        document.querySelector('#list').innerHTML = '';
+        document.querySelector('input[type=file]').value = '';
+        nam.splice(0,nam.length);
+        sessionStorage.removeItem('dataId');
+        addSpan();
+        errorMaxlength(data);
+      });
+
+      var yErr = document.querySelector('#alert--err'),
+          yFail = document.querySelector('#danger-duration'),
+          ySuc = document.querySelector('#success-duration');
+        var errorMaxlength = (thongbao) => {
+          let str_err = thongbao;
+          yErr.style.display = 'block';
+          let mes = yErr.firstElementChild.textContent;
+          yErr.firstElementChild.innerHTML = mes.replace(mes, str_err);
+        }
+        var thanhcong = (thongbao) => {
+          let str_err = thongbao;
+          ySuc.style.display = 'block';
+          ySuc.style.left = '43%';
+          let mes = ySuc.firstElementChild.textContent;
+          ySuc.firstElementChild.innerHTML = mes.replace(mes, str_err);
+        }
+        var thatbai = (thongbao) => {
+          let str_err = thongbao;
+          yFail.style.display = 'block';
+          yFail.style.left = '43%';
+          let mes = yFail.firstElementChild.textContent;
+          yFail.firstElementChild.innerHTML = mes.replace(mes, str_err);
+        }
+        document.getElementById("save").disabled = true;
+        var addSpan = () => {
+          document.getElementById("drop").style.display = "flex";
+          document.getElementById("save").disabled = true;
+        };
+        var removeSpan = () => {
+          document.getElementById("drop").style.display = "none";
+          document.getElementById("save").disabled = false;
+        };
+
+        function deleteSvg(e) {
+          let style = e.parentNode.parentNode.parentNode.currentStyle || window.getComputedStyle(e.parentNode.parentNode.parentNode, false),
+              _urlBase = style.backgroundImage.slice(4, -1).replace(/"/g, ""),
+              imgName = e.parentNode.parentNode.parentNode.title;
+           e.parentNode.parentNode.parentNode.remove(e);
+           sessionStorage.setItem('dataId', Number((sessionStorage.getItem('dataId'))-1));
+           sl_Img.innerHTML = sessionStorage.getItem('dataId');
+           if(sessionStorage.getItem('dataId') !== 6) {
+             sl_Img.style.color = "#01a185";
+           }
+          socket.compress(true).emit("delete", imgName);
+          let yesI = nameImg.indexOf(imgName);
+          if(yesI !== -1) {
+            for (let key in nameImg) {
+              if (nameImg[key] == imgName) {
+                nameImg.splice(key, 1);
+                nam.splice(0,nam.length);
+                nam.push(nameImg.length);
+              }
+            }
+            $imgs.value = nameImg.toString();
+          }
+           if(sessionStorage.getItem("dataId") == 0) {
+             document.querySelector('#list').innerHTML = '';
+             document.querySelector('input[type=file]').value = '';
+             nam.splice(0,nam.length);
+             nameImg.splice(0,nameImg.length);
+             addSpan();
+           }
+        }
+
+        socket.on('loi', data => {
+          thatbai(data);
+          setTimeout(function() {
+            yFail.style.display = 'none';
+          },1500);
+        });
+
+        socket.on('thanhcong', data => {
+          thanhcong(data);
+          setTimeout(function() {
+            ySuc.style.display = 'none';
+          },1500);
+        });
+
+        function resizrSvgA(e) {
+          let style = e.parentNode.parentNode.parentNode.currentStyle || window.getComputedStyle(e.parentNode.parentNode.parentNode, false),
+              _urlBase = style.backgroundImage.slice(4, -1).replace(/"/g, ""),
+              imgName = e.parentNode.parentNode.parentNode.title;
+          let img = document.createElement('img');
+           img.id = 'image';
+           img.src = _urlBase;
+           img.title = imgName;
+           $result.innerHTML = "";
+           $result.appendChild(img);
+          let options = {
+             aspectRatio: 4 / 3,
+             preview: ".img-preview"
+           };
+          sessionStorage.setItem('dataResi', imgName);
+          init_img(options, e);
+        }
+
+        $(document).ready(() => {
+          $('[data-price="tooltip"]').tooltip();
+          $("span#proName").text($("input[name=Product_Name]").val().length),$("span#desDetail").text($("textarea[name=Description]").val().length),$("input[name=Product_Name]").keyup(function(){$("span#proName").text($(this).val().length),120===$(this).val().length?$("span#proName").css("color","red"):$("span#proName").css("color","unset")}),$("textarea[name=Description]").keyup(function(){$("span#desDetail").text($(this).val().length),3e3===$(this).val().length?$("span#desDetail").css("color","red"):$("span#desDetail").css("color","unset")});
+
+          init_img = function(data, $this) {
+            let $image = $('img#image');
+            let titleResize = $image.attr('title');
+            let cropper = $image.on({
+              'build.cropper': function (e) {
+                   (e.type);
+               },
+               'built.cropper': function (e) {
+                   (e.type);
+               },
+               'cropstart.cropper': function (e) {
+                   (e.type, e.action);
+               },
+               'cropmove.cropper': function (e) {
+                   (e.type, e.action);
+               },
+               'cropend.cropper': function (e) {
+                   (e.type, e.action);
+               },
+               'crop.cropper': function (e) {
+                   (e.type, e.x, e.y, e.width, e.height, e.rotate, e.scaleX, e.scaleY);
+               },
+               'zoom.cropper': function (e) {
+                   (e.type, e.ratio);
+               }
+            }).cropper(data);
+            $save.click(function(e) {
+              e.preventDefault();
+              let imgSrc = $image.cropper("getCroppedCanvas",{width:1024}).toDataURL();
+              if(sessionStorage.getItem('dataResi') === titleResize) {
+                getUrl($this, imgSrc);
+                socket.compress(true).emit('resizeAdd', {
+                  image: imgSrc,
+                  unlink: sessionStorage.getItem('dataResi')
+                });
+                sessionStorage.removeItem('dataResi');
+              }
+            });
+            $zooml.click(function (e) {
+              e.preventDefault();
+              $image.cropper("zoom",0.1);
+            });
+            $zoomn.click(function (e) {
+              e.preventDefault();
+              $image.cropper("zoom",-0.1);
+            });
+            $xoayt.click(function (e) {
+              e.preventDefault();
+              $image.cropper("rotate",45);
+            });
+            $xoayp.click(function (e) {
+              e.preventDefault();
+              $image.cropper("rotate",-45);
+            });
+            $reset.click(function (e) {
+              e.preventDefault();
+              $image.cropper("reset");
+            });
+           }
+
+          init_change = function(url, formData, sum, countIhg) {
+            $('input[type=file]').val("");
+            $.ajax({
+              url: url,
+              method: 'Post',
+              data: formData,
+              cache: false,
+              contentType: false,
+              processData: false
+            })
+            .fail(error => {console.error('Error:', error);})
+            .done(data => {
+              if (typeof (data.code) !== 'undefined') {
+                watai = `Lỗi ${data.code}. <br /> - Kích thước vượt quá 5.0 MB.`;
+                 document.querySelector('input[type=file]').value = '';
+                 nam.splice(-1,1);
+                 sum -= countIhg;
+                 errorMaxlength(watai);
+                 sessionStorage.setItem('dataId', sum);
+                 return;
+              } else {
+                if(typeof (data) === 'object') {
+                  sl_Img.innerHTML = sessionStorage.getItem('dataId');
+                  if(sessionStorage.getItem('dataId') == 6) {
+                    sl_Img.style.color = "red";
+                  }
+                  for (let i in data) {
+                    let image = document.createElement("div");
+                    image.classList.add("img-relative");
+                    image.title = data[i].filename;
+                    image.style.background = "url(" + "/images/" +data[i].filename + ") center center / contain no-repeat";
+                    createSvg(image);
+                    nameImg.push(data[i].filename);
+                    previews.appendChild(image);
+                    err.style.display = 'none';
+                    removeSpan();
+                  }
+                  $('input[name=imgs]').val(nameImg.toString());
+                } else {
+                  watai = data;
+                  document.querySelector('input[type=file]').value = '';
+                  nam.splice(-1,1);
+                  sum -= countIhg;
+                  errorMaxlength(watai);
+                  sessionStorage.setItem('dataId', sum);
+                  return;
+                }
+              }
+            });
+          }
+
+        });
+
+        function getUrl($this, imgSrc) {
+          $this.parentNode.parentNode.parentNode.style.background =  "";
+          $this.parentNode.parentNode.parentNode.style.background = "url(" + imgSrc + ") center center / contain no-repeat";
+        }
+        function typle(data_value) {
+          let data = document.querySelector('input#first').value,
+              first = document.querySelector('b#unit');
+          if(data_value === data) {
+            first.innerHTML = 'kg';
+          } else {
+            first.innerHTML = 'Sản phẩm';
+          }
+        }
+        function createSvg(nami)
+        {
+            let link_9k = "http://www.w3.org/2000/svg";
+            let container = nami;
+            let optionSvg = document.createElement("div");
+            optionSvg.classList.add("option_container", "pull-right");
+            let deleOP = document.createElement("div");
+            deleOP.classList.add("deleSvg", "option_out");
+            let resOP = document.createElement("div");
+            resOP.classList.add("resSvg", "option_out");
+            container.appendChild(optionSvg);
+            optionSvg.appendChild(resOP);
+            optionSvg.appendChild(deleOP);
+            let resizrSvg = document.createElementNS(link_9k,'svg');
+            resizrSvg.setAttributeNS(null,"class","resizrSvg opstion");
+            resizrSvg.setAttributeNS(null,"onclick","resizrSvgA(this)");
+            resizrSvg.setAttributeNS(null,"data-toggle","modal");
+            resizrSvg.setAttributeNS(null,"data-target","#resizeImg");
+            resizrSvg.setAttributeNS(null,"viewBox","0 0 1000 1000");
+            resizrSvg.setAttributeNS(null,"enable-background","new 0 0 1000 1000");
+            resizrSvg.setAttributeNS(null,"width",'16px');
+            resizrSvg.setAttributeNS(null,"height","16px");
+            resizrSvg.setAttributeNS(null,"fill","#e90b07");
+            resizrSvg.setAttributeNS(null,"cursor","pointer");
+            resizrSvg.setAttributeNS(null,"stroke","none");
+            resOP.appendChild(resizrSvg);
+            let gresSVG = document.createElementNS(link_9k, "g");
+            gresSVG.setAttributeNS(null,"transform","translate(0.000000,511.000000) scale(0.100000,-0.100000)");
+            resizrSvg.appendChild(gresSVG);
+            let url = document.createElementNS(link_9k, "path");
+            url.setAttributeNS(null, "d", "M2278.5,4946.2l-63.8-61.3v-998.3v-995.8h-995.8H220.6l-61.3-63.8c-99.6-97-68.9-260.4,56.2-316.6c40.8-17.9,375.3-28.1,1029-28.1h970.2V-40.4v-2525.2l58.7-53.6l58.7-56.2h2520.1h2520.1v-970.2c0-653.6,10.2-988.1,28.1-1029c56.2-125.1,219.6-155.8,316.6-56.2l63.8,61.3v998.3v995.8h995.8h998.3l61.3,63.8c99.6,97,68.9,260.4-56.2,316.6c-40.8,17.9-375.3,28.1-1029,28.1h-970.2V163.9v2433.3l1059.6,1059.6C9803,4621.9,9900,4726.6,9900,4800.6c0,112.4-97,209.4-209.4,209.4c-74,0-178.7-97-1143.8-1059.6L7487.2,2890.8H5053.9H2623.2V3861c0,653.6-10.2,988.1-28.1,1029C2538.9,5015.1,2375.5,5045.7,2278.5,4946.2z M7065.9,2474.6c0-2.6-998.3-1006-2221.4-2226.5L2623.2-1973.2v2229v2226.5h2221.3C6067.5,2482.3,7065.9,2479.7,7065.9,2474.6z M7372.3-45.5v-2221.3H5145.8h-2229L5138.2-45.5c1220.5,1223,2223.9,2221.3,2226.5,2221.3C7369.7,2175.9,7372.3,1177.5,7372.3-45.5z");
+            gresSVG.appendChild(url);
+            let deleteSvg = document.createElementNS(link_9k,'svg');
+            deleteSvg.setAttributeNS(null,"class","deleteSvg opstion");
+            deleteSvg.setAttributeNS(null,"onclick","deleteSvg(this)");
+            deleteSvg.setAttributeNS(null,"viewBox","0 0 1000 1000");
+            deleteSvg.setAttributeNS(null,"enable-background","new 0 0 1000 1000");
+            deleteSvg.setAttributeNS(null,"width",'16px');
+            deleteSvg.setAttributeNS(null,"height","16px");
+            deleteSvg.setAttributeNS(null,"fill","#01a185");
+            deleteSvg.setAttributeNS(null,"cursor","pointer");
+            deleteSvg.setAttributeNS(null,"stroke","none");
+            deleOP.appendChild(deleteSvg);
+            let gSVG = document.createElementNS(link_9k, "g");
+            deleteSvg.appendChild(gSVG);
+            for(let io = 0; io <= 5; io++) {
+              let url = document.createElementNS(link_9k, "path");
+              switch (io) {
+                case 0:
+                    var path = url;
+                    path.setAttributeNS(null, "d", "M967,182.7H33c-12.7,0-23-10.3-23-23c0-12.7,10.3-23,23-23H967c12.7,0,23,10.3,23,23C990,172.4,979.7,182.7,967,182.7z");
+                    gSVG.appendChild(path);
+                    break;
+                case 1:
+                    var path1 = url;
+                    path1.setAttributeNS(null, "d", "M744.6,981.6H249.1c-54.8,0-99.3-44.5-99.3-99.3V159.7c0-12.7,10.3-23,23-23c12.7,0,23,10.3,23,23v722.6c0,29.4,23.8,53.3,53.2,53.3h495.5c29.3,0,53.2-23.9,53.2-53.3V235.9c0-12.7,10.3-23.1,23-23.1c12.7,0,23,10.3,23,23.1v646.4C843.9,937.1,799.3,981.6,744.6,981.6z");
+                    gSVG.appendChild(path1);
+                    break;
+                case 2:
+                    var path2 = url;
+                    path2.setAttributeNS(null, "d", "M700.2,182.7c-0.3,0-0.6,0-0.9,0H296.7c-8.4,0-16.2-4.6-20.2-12c-4-7.4-3.7-16.4,0.8-23.5l76.2-118.3c4.3-6.6,11.5-10.6,19.4-10.6h254.9c8.1,0,15.6,4.2,19.8,11.1l68.6,113.6c4.4,4.2,7.1,10.1,7.1,16.6C723.3,172.4,713,182.7,700.2,182.7z M339,136.7h319.6l-43.6-72.3H385.5L339,136.7z");
+                    gSVG.appendChild(path2);
+                    break;
+                case 3:
+                    var path3 = url;
+                    path3.setAttributeNS(null, "d", "M322.9,862.5c-12.7,0-23.1-10.3-23.1-23.1V286.7c0-12.7,10.4-23.1,23.1-23.1c12.7,0,23,10.3,23,23.1v552.7C346,852.2,335.7,862.5,322.9,862.5z");
+                    gSVG.appendChild(path3);
+                    break;
+                case 4:
+                    var path4 = url;
+                    path4.setAttributeNS(null, "d", "M500,862.5c-12.7,0-23-10.3-23-23.1V286.7c0-12.7,10.3-23.1,23-23.1s23.1,10.3,23.1,23.1v552.7C523.1,852.2,512.7,862.5,500,862.5z");
+                    gSVG.appendChild(path4);
+                    break;
+                case 5:
+                    var path5 = url;
+                    path5.setAttributeNS(null, "d", "M666,862.5c-12.7,0-23-10.3-23-23.1V286.7c0-12.7,10.3-23.1,23-23.1c12.7,0,23,10.3,23,23.1v552.7C689,852.2,678.7,862.5,666,862.5z");
+                    gSVG.appendChild(path5);
+                    break;
+                }
+            }
+        }
+  </script>
+</body>
+</html>

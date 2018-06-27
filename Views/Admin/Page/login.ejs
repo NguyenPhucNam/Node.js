@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include ../admin-file(css,js)/head %>
+<body class="login">
+  <div>
+
+    <div class="login_wrapper">
+      <div class="animate form login_form">
+        <section class="login_content">
+          <form action="<%=path%>/admin/dang-nhap" method="POST" autocomplete="off">
+            <h1><%= title %></h1>
+            <% if(hasErrors) { %>
+              <% messages.forEach((err) => {%>
+                <div class="alert alert-danger"><%= err %></div>
+              <% }); %>
+            <% } %>
+            <div>
+              <input type="text" name="email" class="form-control" placeholder="Email" autocomplete="off" required/>
+            </div>
+            <div>
+              <input type="password" name="password" class="form-control" placeholder="Mật khẩu" autocomplete="off" required/>
+            </div>
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <input type="submit" class="btn btn-success col-md-offset-4" value="Đăng nhập">
+            <div class="clearfix"></div>
+
+            <div class="separator">
+
+              <div class="clearfix"></div>
+              <br />
+
+              <div>
+                <h1><a href="<%=path%>" class="ohone"><img src="/images/favicon.png" alt="chototvanlang" style="width: 48px;height: 48px;"> Chợ tốt Văn Lang</a></h1>
+                <p>© 2018 Chợ tốt Văn Lang. All Rights Reserved | Design by <a href="mailto:w.a.f-group@gmail.com"> W.A.F Group</a></p>
+              </div>
+            </div>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

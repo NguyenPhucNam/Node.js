@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- meta css info  -->
+  <%- include ../partials(css-js)/head %>
+
+</head>
+<body>
+  <%- include ../partials/Header %>
+  
+  <br>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Xin chào, <%= user.User.Username %></h1>
+      <p>Hiện tại tài khoản <strong><%= user.email %></strong> của bạn chưa được kích hoạt. Tạm thời trang <strong>Kênh người bán</strong> sẽ bị khoá lại. Bạn vui lòng thanh toán chi phí đăng ký tài khoản để chúng tôi kích hoạt tài khoản của bạn sớm nhất. Trân trọng!
+      </p>
+    </div>
+    <div class="col-md-12 col-sm-8">
+      <h3>Liên hệ với chúng tôi ở thông tin dưới đây: </h3>
+      <ul class="text-dark" style="padding: 0 0 20px 40px;">
+        <li>Email: <a href="mailto:chototvlu@gmail.com">ChototVLU</a></li>
+        <li>Điện thoại: +12343534786</li>
+        <li>Địa chỉ: VPK CNNT (Tầng 7)</li>
+      </ul>
+    </div>
+  </div>
+  <hr>
+  <%- include ../partials/Footer %>
+
+    <!-- js -->
+    <%- include ../partials(css-js)/foot %>
+</body>
+</html>

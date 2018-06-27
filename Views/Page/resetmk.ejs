@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- meta css info  -->
+	<%- include ../partials(css-js)/head %>
+</head>
+<body>
+	<section>
+				<div id="page-wrapper" class="sign-in-wrapper">
+					<div class="graphs">
+						<div class="sign-up">
+							<h1><%= title %></h1>
+							<p class="creating">Có kinh nghiệm trong việc tạo ra các thiết kế sáng tạo, chúng tôi cung cấp các giải pháp thiết kế.</p>
+							<% if(hasErrors) { %>
+								<% messages.forEach((er) => {%>
+									<div class="alert alert-danger"><%= er %></div>
+								<% }); %>
+							<% } %>
+							<form action="<%=path%>/tai-khoan/doi-mat-khau/<%= Token %>" method="post" autocomplete="off">
+								<div class="sign-u">
+									<div class="sign-up1">
+										<h4>Địa chỉ Email :</h4>
+									</div>
+									<div class="sign-up2">
+										<h3><%= user.email %></h3>
+									</div>
+									<div class="clearfix"> </div>
+								</div>
+								<div class="sign-u">
+									<div class="sign-up1">
+										<h4>Mật khẩu mới* :</h4>
+									</div>
+									<div class="sign-up2">
+										<input type="password" name="newPassword" placeholder="Mật khẩu" min="6" maxlength="35" pattern=".{6,35}" autocomplete="off" required/>
+									</div>
+									<div class="clearfix"> </div>
+								</div>
+								<div class="sign-u">
+									<div class="sign-up1">
+										<h4>Xác nhận mật khẩu* :</h4>
+									</div>
+									<div class="sign-up2">
+											<input type="password" name="confirmNewpassword" placeholder="Nhập lại mật khẩu"  min="6" maxlength="35" pattern=".{6,35}" autocomplete="off" required/>
+									</div>
+									<div class="clearfix"> </div>
+								</div>
+								<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+								<div class="sub_home">
+									<div class="sub_home_left">
+											<input type="submit" value="Chấp nhận">
+									</div>
+									<div class="sub_home_right">
+										<p>Quay lại <a href="<%=path%>/tai-khoan/dang-nhap">Đăng nhập</a></p>
+									</div>
+									<div class="clearfix"> </div>
+								</div>
+						</form>
+						</div>
+					</div>
+				</div>
+			<!--footer section start-->
+				<footer class="diff">
+				   <p class="text-center">© 2018 Chợ tốt Văn Lang. All Rights Reserved | Design by  <a href="mailto:w.a.f-group@gmail.com"> W.A.F Group</a></p>
+				</footer>
+	        <!--footer section end-->
+		</section>
+
+		<!-- js -->
+		<%- include ../partials(css-js)/foot %>
+
+</body>
+</html>

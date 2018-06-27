@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- meta css info  -->
+  <%- include ../partials(css-js)/head %>
+
+</head>
+<body>
+  <%- include ../partials/Header %>
+
+  <%- include ../Background/bg %>
+
+  <div class="container">
+    <h1 class="head"><%= tedieu %></h1>
+    <div class="post-ad-form">
+      <div class="clearfix"></div>
+      <div class="personal-details col-sm-8">
+        <% if(mes.length > 0) {%>
+        <div class="alert alert-success alert-dismissible">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Thành công! <%= mes %></strong>
+        </div>
+        <% } %>
+        <%if(loi.length > 0){ %>
+          <% loi.forEach((err) => {%>
+            <div class="alert alert-danger validate-add"><%= err %></div>
+          <% }); %>
+        <% } %>
+        <div id="messages">
+        <p class="lead text-dark text-center">Vui lòng điền đầy đủ,đúng thông tin có mục <span class="text-danger">*(bắt buộc)</span>.</p>
+        </div>
+      	<form action="<%=path%>/san-pham/gui-mail/<%= poro._id %>&<%= (uid == poro.Product_Type) ? "Kg" : "Sản phẩm" %>&<%= poro.Quantity %>" method="post" autocomplete="off">
+      		<label>Tiêu đề <span>*</span></label>
+      		<input type="text" class="title" name="tieude" placeholder="Tiêu đề"  maxlength="100" autocomplete="off" required>
+      		<label>Họ và tên <span>*</span></label>
+      		<input type="text" class="name" name="ten" placeholder="Họ và tên" maxlength="35" autocomplete="off" required>
+      		<div class="clearfix"></div>
+      		<label>Số điện thoại <span>*</span></label>
+      		<input type="tel" class="phone" name="sdt" placeholder="Số điện thoại" min="1" max="17" maxlength="17" autocomplete="off" required>
+      		<div class="clearfix"></div>
+      		<label>Email<span>*</span></label>
+      		<input type="text" class="email" name="email" placeholder="Email" autocomplete="off" required>
+      		<div class="clearfix"></div>
+      		<label>Số lượng <span>*</span></label>
+      		<input type="number" class="soluong" name="soluong" placeholder="Số lượng" min="1" value="<%= sl %>" autocomplete="off" required>
+          <span class="well-unit">/<%= poro.Quantity %>&nbsp;<%= (uid == poro.Product_Type) ? "Kg" : "Sản phẩm" %></span>
+          <div class="clearfix"></div>
+      		<label>Nội dung <span>*</span></label>
+      		<textarea class="mess" placeholder="Nội dung" name="noidung" maxlength="3000" autocomplete="off" required></textarea>
+          <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+      		<input type="submit" class="a" value="Gửi">
+          <a href="<%=path%>"><input type="button" value="Huỷ"></a>
+      		<div class="clearfix"></div>
+      	</form>
+      </div>
+      <div class="pro-info-details col-sm-4">
+        <div id="messages">
+        <p class="lead text-dark text-center">Đây là sản phẩm bạn sẽ gửi liên hệ người bán</p>
+        </div>
+        <div id="imgContantSeller" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <% mulporo.some(function(allPro, idot, arrDot){%>
+                <li data-target="#imgContantSeller" data-slide-to="<%= idot++ %>" class="<%= (idot++ > 0) ? '' : 'active' %>"></li>
+                <% return idot === idot.length; %>
+              <% }); %>
+            </ol>
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <% mulporo.some(function(allPro, iot, arrDot) {%>
+              <div class="item <%= (iot++ > 0) ? "" : "active" %>">
+                <a href="<%=path%>/san-pham/chi-tiet-san-pham/<%= poro._id %>" class="thumbnail">
+                  <div class="img-info-lh" title="<%= poro.Product_Name %>" style="background: url('<%= Url_clound %><%= allPro %>') center center / contain no-repeat;"></div>
+                </a>
+              </div>
+            <% }); %>
+          </div>
+          <div class="lead text-dark text-center">
+            <p><%= poro.Product_Name %></p>
+          </div>
+          <!-- Left and right controls -->
+          <a class="left carousel-control" href="#imgContantSeller" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#imgContantSeller" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+  <%- include ../partials/Footer %>
+
+  <!-- js -->
+  <%- include ../partials(css-js)/foot %>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- meta css info  -->
+  <%- include ../partials(css-js)/head %>
+
+</head>
+<body>
+  <%- include ../partials/Header %>
+
+  <%- include ../Background/bg %>
+
+  <!-- Terms of use -->
+  <div class="contact main-grid-border">
+    <div class="container">
+      <h2 class="head text-center">Liên hệ với chúng tôi</h2>
+      <% if(mes.length > 0) {%>
+      <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Thành công! <%= mes %></strong>
+      </div>
+      <% } %>
+      <%if(loi.length > 0){ %>
+        <% loi.forEach((err) => {%>
+          <div class="alert alert-danger validate-add"><%= err %></div>
+        <% }); %>
+      <% } %>
+      <section id="hire">
+        <form id="filldetails" action="<%=path%>/lien-he" method="post" autocomplete="off">
+            <div class="field name-box">
+              <input type="text" name="title" id="name" placeholder="Vui lòng nhập tiêu đề" maxlength="200" autocomplete="off" required/>
+              <label for="title">Tiêu đề</label>
+              <span class="ss-icon">Tiêu đề</span>
+            </div>
+
+            <div class="field name-box">
+              <input type="text" name="name" id="name" placeholder="Tên bạn là gì ?" maxlength="200" autocomplete="off" required/>
+              <label for="name">Họ tên</label>
+              <span class="ss-icon">Họ tên</span>
+            </div>
+
+            <div class="field email-box">
+              <input type="text" name="email" id="email" placeholder="example@email.com" autocomplete="off" required/>
+              <label for="email">Email</label>
+              <span class="ss-icon">Email</span>
+            </div>
+
+            <div class="field phonenum-box">
+              <input type="text" id="email" name="phone" placeholder="Số điện thoại của bạn" min="9" max="16" autocomplete="off" required/>
+              <label id="phone" for="email">Số điện thoại</label>
+              <span class="ss-icon">SĐT</span>
+            </div>
+
+            <div class="field msg-box">
+              <textarea id="msg" name="content" placeholder="Bạn gửi yêu cầu gì đến chúng tôi nào ..." maxlength="3000" autocomplete="off" required/></textarea>
+              <label for="msg">Nội dung</label>
+              <span class="ss-icon">Nội<br>dung</span>
+            </div>
+          <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+          <input class="button" type="submit" value="Gửi" />
+      </form>
+  </section>
+    </div>
+  </div>
+  <!-- // Terms of use -->
+  <%- include ../partials/Footer %>
+  <!-- js -->
+  <%- include ../partials(css-js)/foot %>
+    <script>
+  $('textarea').blur(function(){$('#hire textarea').each(function(){$this=$(this),''==this.value?($this.removeClass('focused'),$('textarea + label + span').css({opacity:0})):($this.addClass('focused'),$('textarea + label + span').css({opacity:1}))})}),$('#hire .field:first-child input').blur(function(){$('#hire .field:first-child input').each(function(){$this=$(this),''==this.value?($this.removeClass('focused'),$('.field:first-child input + label + span').css({opacity:0})):($this.addClass('focused'),$('.field:first-child input + label + span').css({opacity:1}))})}),$('#hire .field:nth-child(2) input').blur(function(){$('#hire .field:nth-child(2) input').each(function(){$this=$(this),''==this.value?($this.removeClass('focused'),$('.field:nth-child(2) input + label + span').css({opacity:0})):($this.addClass('focused'),$('.field:nth-child(2) input + label + span').css({opacity:1}))})}),$('#hire .field:nth-child(3) input').blur(function(){$('#hire .field:nth-child(3) input').each(function(){$this=$(this),''==this.value?($this.removeClass('focused'),$('.field:nth-child(3) input + label + span').css({opacity:0})):($this.addClass('focused'),$('.field:nth-child(3) input + label + span').css({opacity:1}))})}),$('#hire .field:nth-child(4) input').blur(function(){$('#hire .field:nth-child(4) input').each(function(){$this=$(this),''==this.value?($this.removeClass('focused'),$('.field:nth-child(4) input + label + span').css({opacity:0})):($this.addClass('focused'),$('.field:nth-child(4) input + label + span').css({opacity:1}))})});let id_alert=document.getElementById('id_alert');document.location.search.match(/type=embed/gi)&&window.parent.postMessage('resize','*'),document.getElementById('filldetails').reset();
+  </script>
+</body>
+</html>

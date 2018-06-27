@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <%- include ./partials(css-js)/head %>
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h1><%= (message.length > 0) ? message : "" %></h1>
+        <p class="leah text-right">Quay lại <a href="<%= path %>">Trang chủ</a></p>
+      </div>
+    </div>
+  </body>
+</html>

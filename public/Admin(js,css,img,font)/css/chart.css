@@ -1,0 +1,30 @@
+.min-chart {
+    position: relative;
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    margin: 10px 0 0;
+    text-align: center;
+}
+
+.min-chart .percent {
+    display: inline-block;
+    line-height: 110px;
+    z-index: 2;
+}
+
+.min-chart canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.bnm {
+   position: absolute; font-size: 1em; top: 1.6em; left: 0; right: 0; bottom: 0;
+}
+
+canvas.canvasjs-chart-canvas {top: 0;left: 0;right: 0;bottom: 0; margin: 0 auto;}
+
+canvas.canvasjs-chart-canvas:last-child { z-index: 1000; }
+
+a.canvasjs-chart-credit {visibility: hidden;opacity: 0;}

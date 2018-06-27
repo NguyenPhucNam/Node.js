@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- meta css info  -->
+	<%- include ../partials(css-js)/head %>
+</head>
+<body>
+	<section>
+				<div id="page-wrapper" class="sign-in-wrapper">
+					<div class="graphs">
+						<div class="sign-up">
+							<h1><%= title %></h1>
+							<p class="creating">Có kinh nghiệm trong việc tạo ra các thiết kế sáng tạo, chúng tôi cung cấp các giải pháp thiết kế.</p>
+							<h2>Thông tin cá nhân</h2>
+							<% if(hasErrors) { %>
+								<% messages.forEach((err) => {%>
+									<div class="alert alert-danger"><%= err %></div>
+								<% }); %>
+							<% } %>
+							<form action="<%=path%>/tai-khoan/dang-ky" method="post" autocomplete="off">
+								<div class="sign-u">
+									<div class="sign-up1">
+										<h4>Họ tên* :</h4>
+									</div>
+									<div class="sign-up2">
+										<input type="text" name="username" placeholder="Họ tên" maxlength="35" pattern=".{1,35}" autocomplete="off" required/>
+									</div>
+									<div class="clearfix"> </div>
+								</div>
+								<div class="sign-u">
+									<div class="sign-up1">
+										<h4>Địa chỉ Email* :</h4>
+									</div>
+									<div class="sign-up2">
+										<input type="text" name="email" placeholder="Email" pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}" autocomplete="off" required/>
+									</div>
+									<div class="clearfix"> </div>
+								</div>
+								<div class="sign-u">
+									<div class="sign-up1">
+										<h4>Số điện thoại* :</h4>
+									</div>
+									<div class="sign-up2">
+										<input type="text" name="phone" placeholder="Số điện thoại" pattern="[0-9]{9,16}" autocomplete="off" required/>
+									</div>
+									<div class="clearfix"> </div>
+								</div>
+								<div class="sign-u">
+									<div class="sign-up1">
+										<h4>Mật khẩu* :</h4>
+									</div>
+									<div class="sign-up2">
+										<input type="password" name="password" maxlength="35" placeholder="Mật khẩu" pattern=".{6,35}" autocomplete="off" required/>
+									</div>
+									<div class="clearfix"> </div>
+								</div>
+								<div class="sign-u">
+									<div class="sign-up1">
+										<h4>Xác nhận mật khẩu* :</h4>
+									</div>
+									<div class="sign-up2">
+											<input type="password" name="confirmPassword" maxlength="35" placeholder="Nhập lại mật khẩu" pattern=".{6,35}" autocomplete="off" required/>
+									</div>
+									<div class="clearfix"> </div>
+								</div>
+								<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+								<div class="sub_home">
+									<div class="sub_home_left">
+											<input type="submit" value="Tạo">
+									</div>
+									<div class="sub_home_right">
+										<p>Quay lại <a href="<%=path%>">Trang chủ</a></p>
+									</div>
+									<div class="clearfix"> </div>
+								</div>
+						</form>
+						</div>
+					</div>
+				</div>
+			<!--footer section start-->
+				<footer class="diff">
+				   <p class="text-center">© 2018 Chợ tốt Văn Lang. All Rights Reserved | Design by  <a href="mailto:w.a.f-group@gmail.com"> W.A.F Group</a></p>
+				</footer>
+	        <!--footer section end-->
+		</section>
+
+		<!-- js -->
+		<%- include ../partials(css-js)/foot %>
+		<script type="text/javascript">$(document).ready(function(){$("input[name=confirmPassword]").keyup(function(){$(this).val()===$("input[name=password]").val()?$(this).css("background-color","#fff"):$(this).css("background-color","#e84636")})});</script>
+</body>
+</html>

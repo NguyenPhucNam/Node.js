@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- meta css info  -->
+  <%- include ../partials(css-js)/head %>
+  <style type="text/css">
+  .nostart,body,img{margin:0;padding:0}body,input,select,textarea{font-family:Georgia,"Times New Roman",Times,serif}html{overflow-y:scroll}body{font-size:13px;color:#919191;background-color:#232323}.justify{text-align:justify}.bold{font-weight:700}.center{text-align:center}.right{text-align:right}.nostart{list-style:none}.hidden{display:none}.clear:after{content:".";display:block;height:0;clear:both;visibility:hidden;line-height:0}.clear{display:inline-block;clear:both}html[xmlns] .clear{display:block}* html .clear{height:1%}a{outline:0;text-decoration:none}.fl_left{float:left}.fl_right{float:right}img{border:none;line-height:normal;vertical-align:middle}.imgholder,.imgl,.imgr{padding:4px;border:1px solid #D6D6D6;text-align:center}.imgl{float:left;margin:0 15px 15px 0;clear:left}.imgr{float:right;margin:0 0 15px 15px;clear:right}address,article,aside,div.wrapper,figcaption,figure,footer,header,hgroup,nav,section{margin:0;padding:0;display:block}div.wrapper{width:100%;text-align:left}.row1,.row1 a{color:#C0BAB6;background-color:#333}.row2,.row2 a{background-color:#FFF}.row2{color:#979797}.row2 a{color:#F90}.row3,.row3 a{color:#919191;background-color:#232323}#header #topnav,#header #topnav li a{color:#C0BAB6;background-color:#232323}div.wrapper h1,div.wrapper h2,div.wrapper h3,div.wrapper h4,div.wrapper h5,div.wrapper h6{margin:0 0 15px;padding:0;font-size:20px;font-weight:400;line-height:normal}fieldset,form,legend{margin:0;padding:0;border:none}legend{display:none}input,select,textarea{font-size:12px}#container,#footer,#header{display:block;margin:0 auto;text-align:center}#header{padding:20px 0}#header .fl_left h1,#header .fl_left h2{margin:0;padding:0;font-weight:400;text-transform:none}#header .fl_left h1{font-size:36px}#header .fl_left h2{font-size:13px}#header #topnav{display:block;float:right;margin:0;padding:20px;list-style:none;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px}#header #topnav li{display:inline;margin-right:25px;text-transform:uppercase}#header #topnav li.last{margin-right:0}#header #topnav li a:hover,#header #topnav li.active a{color:#F90;background-color:#232323}#container{padding:30px 0}#container a{background-color:transparent}#container #gallery,#container #portfolio{margin-bottom:30px}#container .pagination{display:block;width:100%;text-align:center;clear:both;font-family:Verdana,Geneva,sans-serif}#container .pagination ul{margin:0;padding:0;list-style:none}#container .pagination li{display:inline}#container .pagination strong{font-weight:400}#container .pagination .next{margin:0}#container .pagination .current strong,#container .pagination .splitter strong,#container .pagination a{display:inline-block;padding:2px 6px;margin:0 2px 0 0}#container .pagination a{border:1px solid #DFDFDF}#footer{padding:20px 0}#footer p{margin:0;padding:0}#about-us{display:block;width:100%;line-height:1.6em}#about-us #about-intro{margin-bottom:50px}#about-us #about-intro div blockquote{position:relative;margin:0;padding:0}#about-us #about-intro div blockquote p{margin:0;padding:0 0 0 60px;font-size:22px;font-style:italic;text-align:justify;line-height:1.6em}#about-us #about-intro div blockquote p span{position:absolute;top:0;left:0;font-size:120px;line-height:.8em}#about-us #about-intro .imgr{background-color:#FFF;margin:0}#about-us #team{margin-bottom:0}#about-us #team ul{margin:0;padding:0;list-style:none}#about-us #team ul li{margin-bottom:30px}#about-us #team ul li figure{text-align:center}#about-us #team ul li figure img{margin-bottom:15px}#about-us #team ul li figure figcaption p{margin:0;padding:0}#about-us #team ul li figure figcaption .team_name{font-weight:700}#about-us #team ul li figure figcaption .team_title{margin:0;font-size:11px;line-height:normal}.four_fifth,.one_fifth,.one_half,.one_quarter,.one_third,.three_fifth,.three_quarter,.two_fifth,.two_quarter,.two_third{display:inline-block;float:left;margin:0 0 0 20px;list-style:none}.one_third,.two_third{margin:0 0 0 30px}.first,.four_fifth:first-child,.one_fifth:first-child,.one_half:first-child,.one_quarter:first-child,.one_third:first-child,.three_fifth:first-child,.three_quarter:first-child,.two_fifth:first-child,.two_quarter:first-child,.two_third:first-child{margin-left:0}.five_fifth,.four_quarter,.three_third,.two_half{display:block;width:100%;clear:both}.one_half{width:470px}.one_third{width:300px}.two_third{width:630px}.one_quarter{width:225px}.two_quarter{width:470px}.three_quarter{width:715px}.one_fifth{width:176px}.two_fifth{width:372px}.three_fifth{width:568px}.four_fifth{width:764px}
+  </style>
+</head>
+<body>
+  <%- include ../partials/Header %>
+
+  <%- include ../Background/bg %>
+
+  <div class="wrapper row2">
+    <div id="container" class="container">
+      <div id="about-us" class="clear">
+        <section id="about-intro" class="clear">
+          <div class="col-xs-12 col-sm-6 col-md-offset-1 col-lg-offset-2">
+            <blockquote>
+              <p><span>&ldquo;</span> <%= Title_about %><span>&ldquo;</span></p>
+            </blockquote><br>
+            <p style="font-size: 15px"> <%= Description %></p>
+          </div>
+          <div class="one_third hidden-xs"><img id="logoChotot" src="<%= Img_Company %>" alt=""></div>
+        </section>
+        <section id="team">
+          <h2>Thành viên</h2>
+          <ul class="clear">
+            <% for(let user in Img_Member) {%>
+              <li class="col-xs-6 col-sm-3">
+                <figure><img class="lazy-member" data-original="/images/<%= Img_Member[user] %>" style="max-width: 100%;" alt="">
+                  <figcaption>
+                    <p class="team_name">W.A.F Group</p>
+                    <p class="team_title">Sinh viên</p>
+                  </figcaption>
+                </figure>
+              </li>
+            <% } %>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <%- include ../partials/Footer %>
+
+  <!-- js -->
+  <%- include ../partials(css-js)/foot %>
+
+</body>
+</html>

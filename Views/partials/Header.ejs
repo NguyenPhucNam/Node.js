@@ -1,0 +1,60 @@
+<div id="header_all" class="header">
+  <div class="container">
+    <div class="logo">
+      <a href="<%=path%>"><span><img class="img-responsive image-circle" src="/images/favicon.png" alt="logo" height="64" width="64" style="float: left;">Chợ Tốt</span>&nbsp;Văn Lang</a>
+    </div>
+    <div class="header-right" style="display: flex;padding: 20px;">
+      <div class="dropdown" style="width: fit-content; margin: 0 auto;">
+        <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Xin chào&nbsp;<% if(user) { %> <%= user.User.Username %> <% } %>&nbsp;^^&nbsp;
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <% if(user) {%>
+            <li><a class="" href="<%=path%>/tai-khoan/thong-tin-ca-nhan">Thông tin tài khoản</a></li>
+            <li class="divider"></li>
+            <li><a class="" href="<%=path%>/tai-khoan/dang-xuat">Thoát</a></li>
+          <% } else {%>
+            <li><a class="" href="<%=path%>/tai-khoan/dang-nhap">Đăng nhập</a></li>
+            <li class="divider"></li>
+            <li><a class="" href="<%=path%>/tai-khoan/dang-ky">Đăng ký</a></li>
+          <% } %>
+        </ul>
+      </div>
+      <button type="button" title="Tìm kiếm nhanh" class="btn btn-default" data-toggle="modal" data-target="#fastSearch"><i class="glyphicon glyphicon-search"></i></button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Search -->
+<div class="modal fade" id="fastSearch" role="dialog">
+  <div class="modal-dialog modal-sm modal-lg">
+
+    <!-- Search content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div class="form-group input-group-lg">
+          <input type="text" id="elasticsearch" maxlength="128" autocomplete="off" class="form-control" placeholder="Nhập từ khoá ..." pattern="/[a-zA-Z0-9]/i" required>
+          <div id="data-list" class="list-group"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Navbar -->
+
+<nav id="open--menu"><ul><li><a href="#menu">Menu</a></li></ul></nav>
+
+<nav id="menu">
+	<h2 id="h2--menu">Menu</h2>
+	<ul>
+		<li><a href="<%=path%>">Trang chủ</a></li>
+		<li><a href="<%=path%>/danh-muc/5af85f65419cadab24fbc6ad">Danh mục</a></li>
+		<li><a href="<%=path%>/kenh-nguoi-ban">Kênh Người Bán</a></li>
+		<li><a href="<%=path%>/gioi-thieu">Giới thiệu</a></li>
+		<li><a href="<%=path%>/lien-he">Liên hệ</a></li>
+	</ul>
+</nav>

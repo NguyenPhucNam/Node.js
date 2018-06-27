@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- meta css info  -->
+	<%- include ../partials(css-js)/head %>
+</head>
+<body>
+	<section>
+				<div id="page-wrapper" class="sign-in-wrapper">
+					<div class="graphs">
+						<div class="sign-up">
+							<h1><%= title %></h1>
+							<p class="creating">Có kinh nghiệm trong việc tạo ra các thiết kế sáng tạo, chúng tôi cung cấp các giải pháp thiết kế.</p>
+							<h2>Thông tin cá nhân</h2>
+							<% if(hasErrors) { %>
+								<% messages.forEach((err) => {%>
+									<div class="alert alert-danger"><%= err %></div>
+								<% }); %>
+							<% } %>
+
+							<% if (success.length > 0) { %>
+						  <div class="modal fade in" onclick="hide(this)" role="dialog" style="display: block;">
+						    <div class="modal-dialog modal-sm">
+						      <div class="modal-content">
+						        <div class="modal-header">
+						          <h4 class="modal-title">Đặt lại mật khẩu</h4>
+						        </div>
+						        <div class="modal-body">
+						          <p>Link để thiết lập lại mật khẩu của bạn đã được gửi đến địa chỉ email này., nhấn vào <a style="text-decoration: underline;" href="https://mail.google.com" target="_blank">đây</a> đăng nhập email của bạn để xác minh!.</p>
+											<br>
+											<p>- Sau 15 phút kể từ khi bạn chọn "Lấy" mà Email vẫn chưa được gửi đến hãy <a style="text-decoration: underline;" href="mailto:nnam1472@gmail.com">liên hệ</a> với chúng tôi để hỗ trợ bạn sớm nhất. Trân trọng!</p>
+										</div>
+						      </div>
+						    </div>
+						  </div>
+							<div id="backdrop" class="modal-backdrop fade in"></div>
+							<% } %>
+
+							<form action="<%=path%>/tai-khoan/lay-mat-khau" method="post" autocomplete="off">
+								<div class="sign-u">
+									<div class="sign-up1">
+										<h4>Địa chỉ Email* :</h4>
+									</div>
+									<div class="sign-up2">
+										<input type="text" name="email" placeholder="Email" pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}" autocomplete="off" required/>
+									</div>
+									<div class="clearfix"> </div>
+								</div>
+								<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+								<div class="sub_home">
+									<div class="sub_home_left">
+											<input type="submit" value="Gửi">
+									</div>
+									<div class="sub_home_right">
+										<p>Quay lại <a href="<%=path%>">Trang chủ</a></p>
+									</div>
+									<div class="clearfix"> </div>
+								</div>
+						</form>
+						</div>
+					</div>
+				</div>
+			<!--footer section start-->
+				<footer class="diff">
+				   <p class="text-center">© 2018 Chợ tốt Văn Lang. All Rights Reserved | Design by  <a href="mailto:w.a.f-group@gmail.com"> W.A.F Group</a></p>
+				</footer>
+	        <!--footer section end-->
+		</section>
+
+		<!-- js -->
+		<%- include ../partials(css-js)/foot %>
+		<script type="text/javascript">
+			function hide(e) {
+				document.querySelector('div#backdrop').remove();
+				e.classList.remove('in');
+				e.style.display = 'none';
+			}
+		</script>
+
+</body>
+</html>

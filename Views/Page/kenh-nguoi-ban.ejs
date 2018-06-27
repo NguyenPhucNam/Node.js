@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- meta css info  -->
+  <%- include ../partials(css-js)/head %>
+
+</head>
+<body>
+  <%- include ../partials/Header %>
+  <hr>
+  <main>
+    <section id="main__section--createpost" class="container">
+      <div class="container__title">
+        <h2 class="text-center text-primary">Chào mừng đến với Chợ tốt Văn Lang - <%= title %></h2>
+      </div>
+      <div class="container__subtitle">
+        <div class="text-dark well container__well--quydinh" data-toggle="collapse" data-target="#demo">
+          <strong>Info!</strong> Vui lòng đọc kỹ bên dưới...
+          <span class="well__span--quydinh" style="float: right;"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+        </div>
+          <div id="demo" class="collapse in">
+            <p class="lead text-justify text-dark">
+          Chợ tốt Văn Lang - Kênh Người bán là công cụ quản lý shop, giúp bạn dễ phân loại sản phẩm, theo dõi đơn hàng, chăm sóc khách hàng và đánh giá hoạt động của shop.
+          <br>
+          Là chủ shop, bạn vui lòng đọc kĩ và tuân thủ
+            <b><a class="text-primary" href="#">Quy định Chợ tốt Văn Lang</a></b>
+          </p>
+          </div>
+      </div><br>
+      <div class="panel panel-success">
+          <div class="panel-heading">
+            <ul class="nav nav-pills">
+              <li class="active"><a data-toggle="pill" href="#all--product">Thêm Sản phẩm</a></li>
+              <li><a data-toggle="pill" href="#Enable--product">Đang bán</a></li>
+              <li><a data-toggle="pill" href="#Disable--product">Tạm ngưng</a></li>
+              <li class="navbar-right">
+                <form class="navbar-form" action="">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="search">
+                    <div class="input-group-btn">
+                      <input type="hidden" name="_csrf" hidden readonly size="1" required value="<%= csrfToken %>">
+                      <button class="btn btn-default" type="submit">
+                        <i class="glyphicon glyphicon-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+            </li>
+          </ul>
+        </div>
+          <div class="panel-body">
+            <div class="tab-content">
+              <div id="all--product" class="tab-pane fade in active">
+                <h3 class="text-dark"><%= products.length %> Sản phẩm</h3>
+                <br>
+                <div class="tab-pane__frame--insert">
+                  <a href="<%=path%>/san-pham/them-san-pham">
+                    <div id="tab-pane__add--click" class="tab-pane__img--insert">
+                      <img src="/images/Add-icon.png" class="img-responsive img-circle" alt="Add Images" style="max-width: 32px;">
+                      <p class="description text-dark">Thêm 1 sản phẩm</p>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-sm-offset-4 abc hidden-xs">
+                  <img class="img-responsive img-kenh" src="/images/chotot.png" style="width: 320px;" />
+                </div>
+                <div class="clear" style="clear: both;"></div><br>
+                <p class="lead text-dark text-center">
+
+                </p>
+              </div>
+              <div id="Enable--product" class="tab-pane fade">
+
+
+                <ul id="new--product" style="list-style-type: none;">
+
+                    <% products.forEach(function(myPros) { %>
+                      <li>
+                        <div class="col-md-3 biseller-column" data-hideID="<%= myPros._id %>">
+                          <a href="<%=path%>/san-pham/chi-tiet-san-pham/<%= myPros._id %>">
+                          <div class="lazy-sale img-Product" data-original="<%= myPros.Url_clound %><%= myPros.Img_Product %>" title="<%= myPros.Product_Name %>"></div>
+                          <span class="price">&#36; <%= myPros.Price %></span>
+                        </a>
+                          <div class="ad-info">
+                            <h5><%= myPros.Product_Name %></h5>
+                            <span><%= myPros.Create_at.toLocaleDateString() %></span>
+                          </div>
+                          <div style="display: flex;">
+                            <a href="<%=path%>/san-pham/update-san-pham/<%= myPros._id %>">
+                              <input type="button" class="btn btn-success" name="Chỉnh sửa" value="Chỉnh sửa">
+                            </a>
+                            <a class="Status--product" href="#">
+                              <input type="button" class="btn btn-success hidden-poro" data-val="false" value="Ẩn">
+                            </a>
+                          </div>
+                        </div>
+                      </li>
+                    <% }); %>
+
+                  </ul>
+
+
+              </div>
+
+              <div id="Disable--product" class="tab-pane fade">
+
+
+                <ul id="new--productD" style="list-style-type: none;">
+
+                    <% productsD.forEach(function(myProsD) { %>
+                      <li>
+                        <div class="col-md-3 biseller-column" data-hideID="<%= myProsD._id %>">
+                          <a href="<%=path%>/san-pham/chi-tiet-san-pham/<%= myProsD._id %>">
+                            <div class="lazy-ngung img-Product" data-original="<%= myProsD.Url_clound %><%= myProsD.Img_Product %>" title="<%= myProsD.Product_Name %>"></div>
+                            <span class="price">&#36; <%= myProsD.Price %></span>
+                          </a>
+                          <div class="ad-info">
+                            <h5><%= myProsD.Product_Name %></h5>
+                            <span><%= myProsD.Create_at.toLocaleDateString() %></span>
+                          </div>
+                          <div style="display: flex;">
+                            <a href="<%=path%>/san-pham/update-san-pham/<%= myProsD._id %>">
+                              <input type="button" class="btn btn-success" name="Chỉnh sửa" value="Chỉnh sửa">
+                            </a>
+                            <a class="Status--productD" href="#">
+                              <input type="button" class="btn btn-success hidden-poro" data-val="true" value="Hiện">
+                            </a>
+                          </div>
+                        </div>
+                      </li>
+                    <% }); %>
+
+                  </ul>
+
+              </div>
+
+            </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <hr>
+
+  <div class="modal fade" id="loi" role="dialog">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-body">
+         <p id="p_loi">Lỗi</p>
+       </div>
+       <div class="modal-footer">
+         <button type="button" id="acp" class="btn btn-danger" data-dismiss="modal">Đồng ý</button>
+       </div>
+     </div>
+   </div>
+ </div>
+
+  <%- include ../partials/Footer %>
+
+    <!-- js -->
+    <%- include ../partials(css-js)/foot %>
+
+</body>
+</html>

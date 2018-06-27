@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include ../admin-file(css,js)/head %>
+<style type="text/css">
+  .dt-buttons.btn-group {
+    float: right;
+  }
+  div#datatable-buttons_filter {
+    text-align: left;
+    float: none;
+  }
+</style>
+  <body class="nav-md">
+    <div class="container body">
+
+      <div class="main_container">
+
+        <%- include ../partials/navigate/navbar-admin %>
+
+          <%- include ../partials/header/header-admin %>
+
+            <!-- page content -->
+            <div class="right_col" role="main">
+              <div class="">
+                <div class="page-title">
+                  <div class="title_left">
+                    <h3>Thống kê </h3>
+                  </div>
+
+                  <div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                      <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Từ khoá...">
+                        <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Tìm nào!</button>
+                    </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="row">
+
+                  <div class="col-md-8 col-sm-8 col-xs-12">
+                    <div class="x_panel">
+                      <div class="x_title">
+                        <h2>Thống kê số tài khoản bán nhiều</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                          </li>
+                          <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a href="#">Settings 1</a>
+                              </li>
+                              <li><a href="#">Settings 2</a>
+                              </li>
+                            </ul>
+                          </li>
+                          <li><a class="close-link"><i class="fa fa-close"></i></a>
+                          </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="x_content">
+
+                        <canvas id="myChart" style="max-width: 716px;height:350px;"></canvas>
+
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="x_panel">
+                      <div class="x_title">
+                        <h2>Tài khoản bán nhiều nhất </h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                          </li>
+                          <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a href="#">Settings 1</a>
+                              </li>
+                              <li><a href="#">Settings 2</a>
+                              </li>
+                            </ul>
+                          </li>
+                          <li><a class="close-link"><i class="fa fa-close"></i></a>
+                          </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="x_content">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                          <table id="datatable-buttons" class="table table-striped table-bordered table-hover">
+                            <thead>
+                              <tr>
+                                <th>Hạng</th>
+                                <th>Tên</th>
+                                <th>Số sản phẩm</th>
+                                <th>Loại</th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              <% var dataname = [], datan = []; %>
+                              <% data.some(function(value,i,arr) {%>
+                                <tr>
+                                  <td><%=i+1%></td>
+                                  <td><%=value.name%></td>
+                                  <td><%=value.total%></td>
+                                  <td>Thường Xuyên</td>
+                                </tr>
+                                <% dataname.push(value.name); %>
+                                <% datan.push(value.total); %>
+                              <%});%>
+                            </tbody>
+                          </table>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+
+              </div>
+              <!-- /page content -->
+
+
+            </div>
+            <%- include ../partials/footer/footer-admin %>
+
+      </div>
+
+      <%- include ../admin-file(css,js)/footer %>
+      <script type="text/javascript">
+        let ui = '<%= dataname %>';
+        let label_ui = ui.split(',');
+        let ctx = document.getElementById("myChart").getContext('2d');
+        let myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: label_ui,
+                datasets: [{
+                    label: label_ui,
+                    data: <%= JSON.stringify(datan); %>,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+      </script>
+
+  </body>
+
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include ../admin-file(css,js)/head %>
+
+  <body class="nav-md">
+    <div class="container body">
+
+      <div class="main_container">
+
+        <%- include ../partials/navigate/navbar-admin %>
+
+          <%- include ../partials/header/header-admin %>
+
+            <!-- page content -->
+            <div class="right_col" role="main">
+              <div class="">
+                <div class="page-title">
+                  <div class="title_left">
+                    <h3>Tài khoản <small>...</small></h3>
+                  </div>
+
+                  <div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                      <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Từ khoá...">
+                        <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Tìm nào!</button>
+                    </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="row">
+
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                      <div class="x_title">
+                        <h2>Quản lý tài khoản</small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                          </li>
+                          <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a href="#">Duyệt</a>
+                              </li>
+                              <li><a href="#">Xoá</a>
+                              </li>
+                            </ul>
+                          </li>
+                          <li><a class="close-link"><i class="fa fa-close"></i></a>
+                          </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="x_content">
+                        <div id="thanhcong" class="alert alert-success" style="opacity: 0;">
+                          <strong>Thành công!</strong>
+                        </div>
+                        <table id="datatable-checkbox" class="table table-hover table-striped table-bordered bulk_action" style="cursor: pointer;">
+                          <thead>
+                            <tr>
+                              <th>
+                                <th><input type="checkbox" id="check-all" class="flat"></th>
+                              </th>
+                              <th>Họ tên</th>
+                              <th>Email</th>
+                              <th>Thông tin</th>
+                              <th>Số diện thoại</th>
+                              <th>Ngày đăng ký</th>
+                              <th>Trạng thái</th>
+                              <th>Thống kê</th>
+                            </tr>
+                          </thead>
+
+                          <tbody>
+
+                            <% account.forEach(function(userAccount) {%>
+                              <tr data-id="<%= userAccount._id %>">
+                                <td>
+                                  <th>
+                                    <input type="checkbox" id="check-all" class="flat">
+                                  </th>
+                                </td>
+                                <td><%= userAccount.User.Username %></td>
+                                <td><%= userAccount.email %></td>
+                                <td><%= userAccount.User.Info %></td>
+                                <td><%= userAccount.User.Phone %></td>
+                                <td><%= userAccount.Create_at.toLocaleDateString() %></td>
+                                <td>
+                                  <div class="form-group">
+                                     <div class="col-md-12 col-sm-9 col-xs-12">
+                                       <div class="">
+                                         <label>
+                                           <a href="#" class="Status_Account" data-id="<%= userAccount._id %>">
+                                             <% if(userAccount.User.Status === true){ %>
+                                                <input type="checkbox" data-controls="false" class="js-switch" checked/><br>
+                                                <div class="dd">
+                                                  Đã Duyệt
+                                                </div>
+                                             <% } else { %>
+                                               <input type="checkbox" data-controls="true" class="js-switch"/><br>
+                                               <div class="dd">
+                                                 Chờ duyệt
+                                               </div>
+                                             <% } %>
+                                           </a>
+                                         </label>
+                                       </div>
+                                     </div>
+                                   </div>
+                                </td>
+                                <input id="token" type="hidden" name="_csrf" value="<%=csrfToken%>">
+                                <td>
+                                  <button type="button" class="btn btn-success statitic" data-placement="top" data-toggle="modal" data-target="#myModal">Thống kê</button>
+                                </td>
+                              </tr>
+                            <% }); %>
+
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <!-- /page content -->
+
+              <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <!-- <h4 class="modal-title">Thống kê</h4> -->
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#all-statistic">Tổng thống kê</a></li>
+                        <li><a data-toggle="tab" href="#style-statistic">Loại</a></li>
+                      </ul>
+                    </div>
+                    <div class="modal-body">
+
+                      <div class="tab-content">
+                        <div id="all-statistic" class="tab-pane fade in active">
+                          <div class="text-center">
+                              <div class="min-chart" id="chart-sales" data-percent="0">
+                                <span class="percent"></span>
+                              </div>
+                              <h3><span class="label green"><a id="aUser" data-ds="tooltip" data-placement="bottom" title="Chọn để xem danh sách sản phẩm" href="#">Danh sách sản phẩm </a><i class="fa fa-arrow-circle-up"></i></span></h3>
+                          </div>
+                        </div>
+                        <div id="style-statistic" class="tab-pane fade">
+                          <div class="text-center">
+
+                            <div id="style--statistic" style="width: 100%; position: relative;height: 56vh;"></div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+
+            </div>
+
+      </div>
+
+      <script src="/Admin(js,css,img,font)/js/jquery.canvasjs.min.js"></script>
+      <%- include ../admin-file(css,js)/footer %>
+
+  </body>
+
+</html>

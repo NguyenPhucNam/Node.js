@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- meta css info  -->
+  <%- include ../partials(css-js)/head %>
+
+</head>
+<body>
+  <%- include ../partials/Header %>
+  <div class="container">
+    <div class="row">
+      <main>
+        <h1 class="text-center">Thông tin cá nhân</h1><br>
+        <br>
+        <div class="col-sm-offset-2 form-horizontal">
+          <div class="form-group">
+            <div class="col-sm-offset-1 media">
+              <div class="media-left">
+                <img src="/images/<%= user.User.Avatar_Img %>" class="img-circle media-object" style="width:60px;">
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading"><%= account.User.Username %></h4>
+                <p>Chuyên bán bưởi</p>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Email:</label>
+            <div class="col-sm-5">
+              <input type="email" class="form-control" id="email" placeholder="<%= account.email %>" name="email" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Thông tin:</label>
+            <div class="col-sm-5">
+              <input type="text" class="form-control" id="user-info" placeholder="<%= account.User.Info %>" name="user-info">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Số điện thoại:</label>
+            <div class="col-sm-5">
+              <input type="tel" class="form-control" id="user-phone" placeholder="<%= account.User.Phone %>" name="user-phone">
+            </div>
+          </div>
+          <br><br>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <%- include ../partials/Footer %>
+
+    <!-- js -->
+    <%- include ../partials(css-js)/foot %>
+
+</body>
+</html>
