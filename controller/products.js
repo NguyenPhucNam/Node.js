@@ -336,9 +336,9 @@ exports.post_sendMail_products_for_Seller = (req, res, next) => {
               <ul style="list-style-type: persian;">
                 <li>Tên sản phẩm: ${ lolo.Product_Name}</li>
                 <li>Giá: ${lolo.Price} VNĐ</li>
-                <li>Số lượng: ${lolo.Quantity - req.body.soluong} ${req.params.tyle} còn lại</li>
-                <li>Brand: ${lolo.Brand}</li>
-                <li>Status: ${lolo.Status}</li>
+                <li>Số lượng: ${lolo.Quantity} ${req.params.tyle} còn lại</li>
+                <li>Thương hiệu: ${lolo.Brand}</li>
+                <li>Tình trạng: ${lolo.Status}</li>
               </ul>
               <br/>
               <br>
