@@ -11,12 +11,8 @@ const nodemailer = require('nodemailer');
 
 //Set luu
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './public/images/')
-  },
   filename: (req, file, cb) => {
-    let hexa = Buffer.from((req.user.email+file.originalname), 'ascii'),
-        imgArr = Date.now()+hexa.toString('hex')+path.extname(file.originalname);
+        let imgArr = Date.now();
 		cb(null, imgArr);
 		}
 });
@@ -24,7 +20,7 @@ const storage = multer.diskStorage({
 //Init Upload
 const upload = multer({
   limits: {
-    fileSize: 2*1024*1024,
+    fileSize: 2 * 1024 * 1024,
     files: 6
   },
   fileFilter: (req, file, cb) => {
@@ -87,16 +83,6 @@ exports.get_detail_products_from_Id = (req, res, next) => {
   });
 };
 
-
-exports.post_products_img = (req, res, next) => {
-  upload(req,res,(err) => {
-    if(err) {
-      return res.status(200).json(err);
-    } else {
-      return res.status(200).json(req.files);
-    }
-  });
-};
 
 exports.get_add_products = (req, res, next) => {
   Product.find((err, docs) => {
@@ -435,6 +421,17 @@ module.exports.socket = (io) => {
     //   }
     // });
 
+    let files = {},
+    struct={name:null,size:null,type:null,data:[],slice:0};
+
+    socket.on('uploadAdd', data => {
+      uploadImg(data);
+    });
+
+    socket.on('uploadEdit', data => {
+      uploadImg(data);
+    });
+
     socket.on('resizeAdd', data => {
       resizeImg(data);
     });
@@ -458,6 +455,34 @@ module.exports.socket = (io) => {
     socket.on('deleteAllE', data => {
       deleteAll(data);
     });
+
+    let uploadImg = (data) => {
+      if (!files[data.name]) {
+        files[data.name] = Object.assign({}, struct, data);
+        files[data.name].data = [];
+      }
+      data.data = Buffer.from(new Uint8Array(data.data));
+      files[data.name].data.push(data.data);
+      files[data.name].slice++;
+      if(data.type.match(/jpg|jpeg|png|gif/i)) {
+        if (files[data.name].slice * 2097152 >= files[data.name].size) {
+            let fileBuffer = Buffer.concat(files[data.name].data),
+                hexa = Buffer.from(data.name, 'ascii'),
+                imgName = Date.now()+hexa.toString('hex')+path.extname(data.name);
+           fs.writeFile('./public/images/'+imgName, fileBuffer, (err) => {
+               delete files[data.name];
+               if (err) return socket.emit('loi',"Không up được ảnh"+data.name);
+               socket.emit('uploadAddS', {filename: imgName});
+           });
+        } else {
+          socket.emit('uploadAddS', {currentImage: data.name});
+          return;
+        }
+      } else {
+        socket.emit('uploadAddS', 'Vui lòng chỉ chọn đúng định dạng ảnh&nbsp;<i class="text-primary">( .JPG |.JPEG |.PNG |.GIF )</i>.');
+        return;
+      }
+    }
 
     let deleteAll = (data) => {
       for (let vakey in data) {
@@ -495,18 +520,22 @@ module.exports.socket = (io) => {
     }
 
     let resizeImg = (data) => {
-      let image = data.image,
-          unlink = data.unlink;
-      let base64Data = image.replace(/^data:image\/png;base64,/, "");
+      let image=data.image,unlink=data.unlink,base64Data=image.replace(/^data:image\/png;base64,/,""),newImg=Date.now()+unlink;
       fs.exists(`./public/images/${unlink}`, (exists) => {
         if (exists) {
-          fs.writeFile(`./public/images/${unlink}`, base64Data, 'base64', (err) => {
-            if(err) {
-                socket.compress(true).emit('loi',"Resize thất bại");
-                return;
-            }
-            socket.compress(true).emit('thanhcong',"Resize thành công");
-          });
+          try {
+            fs.unlinkSync(`./public/images/${unlink}`);
+            fs.writeFile(`./public/images/${newImg}`, base64Data, 'base64', (err) => {
+              if(err) {
+                  socket.compress(true).emit('loi',"Resize thất bại");
+                  return;
+              }
+              socket.compress(true).emit('resizeThanhcong',{message: "Resize thành công",oldImg: unlink,newImg: newImg});
+            });
+          } catch (err) {
+            socket.compress(true).emit('loi',"Resize thất bại");
+            return;
+          }
         } else {
           socket.compress(true).emit('loi',"Ảnh không tồn tại");
           return;

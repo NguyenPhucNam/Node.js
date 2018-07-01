@@ -13,10 +13,6 @@ router.post("/gui-mail/:id&:tyle&:kho", ProductsController.post_sendMail_product
 
 
 //Has checkAuth Seller
-router.post("/uploadAdd", checkAuth.isLogin, checkAuth.isPay, ProductsController.post_products_img);
-
-router.post("/uploadEdit", checkAuth.isLogin, checkAuth.isPay, ProductsController.post_products_img);
-
 router.get("/them-san-pham", checkAuth.isLogin, checkAuth.isPay, ProductsController.get_add_products);
 
 router.post("/them-san-pham", checkAuth.isLogin, checkAuth.isPay, ProductsController.post_add_products);
