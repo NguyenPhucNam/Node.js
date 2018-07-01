@@ -207,7 +207,6 @@ exports.get_logout = (req, res, next) => {
     res.clearCookie("connect.sid", {
       httpOnly: true,
       maxAge: new Date(),
-      expires: new Date(),
     }).status(302).redirect(config.Path);
   });
 };

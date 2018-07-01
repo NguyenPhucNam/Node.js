@@ -46,10 +46,10 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
 	secure: true,
+	expires : new Date(Date.now() + 10800000),
 	cookie: {
     httpOnly: true,
 		maxAge:  new Date(Date.now() + 10800000),
-		expires : new Date(Date.now() + 10800000),
 	}, //# 3 tiếng
 	store: new mongoMemory({ mongooseConnection: mongoose.connection })
 }));
