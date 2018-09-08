@@ -88,37 +88,7 @@
 			<% if(user) { %>
 				<input id="userCon" type="hidden" value="<%= user._id %>#<%= user.User.Username %>" size="1" readonly disabled>
 				<% if(user.User.Status) { %>
-				<div class="col-sm-12">
-					<!-- <div class="panel panel-success">
-						<div class="panel-heading" data-toggle="collapse" data-target="#chat" aria-expanded="false" style="cursor: pointer;">Chat
-							<span class="pull-right"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
-						</div>
-						<div class="panel-body" style="padding-bottom: 0;">
-							<div class="col-sm-3" style="height: 30vh; overflow-y: auto;">
-								<div class="row" style="padding-right: 7px;">
-									<div id="roomschat" class="contact-chat"></div>
-								</div>
-							</div>
-							<div id="scroll-chat" class="col-sm-9" style="height: 30vh;overflow-y: auto;">
-								<div id="chat-form">
-
-								</div>
-							</div>
-						</div>
-						<div class="panel-body" style="padding-top: 0;">
-							<hr>
-							<div id="wait"></div>
-							<div class="input-group">
-								<input type="text" id="mes--chat" class="form-control" placeholder="Chat ...">
-								<div class="input-group-btn">
-									<button class="btn btn-default" id="send-mes" type="button">
-										<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div> -->
-				</div>
+				<div class="col-sm-12"></div>
 				<% } else { %>
 					<div class="table-responsive well">
 					  <table class="table table-bordered table-hover">
@@ -157,4 +127,22 @@
 
 		</div>
 
+		<script>
+			window.fbAsyncInit = function () {
+					FB.init({
+							appId 					 : '179319576211993',
+							autoLogAppEvents : true,
+							xfbml            : true,
+							version          : 'v2.12'
+					});
+			};
+			(function(d, s, id){
+		     var js, fjs = d.getElementsByTagName(s)[0];
+		     if (d.getElementById(id)) {return;}
+		     js = d.createElement(s); js.id = id;
+		     js.src = "https://connect.facebook.net/en_US/sdk.js";
+		     fjs.parentNode.insertBefore(js, fjs);
+		   }(document, 'script', 'facebook-jssdk'));
+		</script>
+		<div class="fb-customerchat" page_id="457004028153673"></div>
 </footer>
