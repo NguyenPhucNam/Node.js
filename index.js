@@ -112,7 +112,7 @@ app.use((err, req, res, next) => {
 		});
 });
 
-const port = process.env.PORT || config.Port;
+const port = process.env.NODE_PORT || config.Port;
 server.listen(port,() => console.log('Server start: ' + port));
 
 module.exports = app;
