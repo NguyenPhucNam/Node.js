@@ -1,7 +1,7 @@
 "use strict";
 var express = require('express'),
-	  app = express(),
-	  bodyParser = require("body-parser"),
+	  	app = express(),
+	  	bodyParser = require("body-parser"),
 		ProductsController = require('./controller/products'),
 		mongoose = require('mongoose'),
 		morgan = require('morgan'),
@@ -17,10 +17,10 @@ var express = require('express'),
 		user = require('./Routes/User'),
 		products = require('./Routes/Product'),
 		config = require('./config/default'),
-    path = require('path'),
+    	path = require('path'),
 		compression = require('compression'),
 		csrf = require('csurf'),
-	  server = require("http").Server(app),
+	  	server = require("http").Server(app),
 		io = require('socket.io')(server);
 
 
