@@ -51,7 +51,7 @@ if ( cluster.isMaster ) {
     // trong nó. Thay vào đó, ta sẽ gọi (require) tới từ một module khác. Cuối cùng việc 
     // này sẽ cho phép ta chạy ứng dụng theo Cluster mode hay một cách Độc lập bằng cách
     // sử dụng các entry-point khác nhau (cluster.js vs server.js)
-    require( "./app" );
+    require( "./index" );
 
     console.log( chalk.red( "[Worker]" ), "Worker bắt đầu.", process.pid );
 
